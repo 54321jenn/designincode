@@ -252,7 +252,7 @@ export default function Layout() {
             <MenuIcon />
           </IconButton>
           <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit" href="https://github.com" target="_blank">
+          <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank">
             <GitHubIcon />
           </IconButton>
         </Toolbar>
