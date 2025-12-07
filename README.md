@@ -1,4 +1,4 @@
-# Design in Code - Jenn Medellin - Trigger build
+# Design in Code - Jenn Medellin
 
 # React + TypeScript + Vite
 
