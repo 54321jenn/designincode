@@ -1,69 +1,42 @@
-.app-root {
-  min-height: 100vh;
-  background: #f5f8fa;
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-.app-layout {
-  display: grid;
-  grid-template-columns: 320px minmax(0, 1fr);
-  gap: 16px;
-  padding: 16px;
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
-.sidebar {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.main {
-  min-width: 0;
-}
-
-.panel {
-  padding: 16px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.lesson-card {
-  cursor: pointer;
-}
-
-.lesson-card:hover {
-  box-shadow: 0 0 0 1px rgba(19, 124, 189, 0.3),
-    0 2px 8px rgba(16, 22, 26, 0.2);
-}
-
-.lesson-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.lesson-meta {
-  margin-top: 4px;
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  font-size: 11px;
-}
-
-.tag-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.playground-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-}
-
-@media (max-width: 900px) {
-  .app-layout {
-    grid-template-columns: minmax(0, 1fr);
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
   }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
