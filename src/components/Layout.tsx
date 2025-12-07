@@ -12,6 +12,8 @@ import {
   ListItemIcon,
   ListItemText,
   IconButton,
+  Collapse,
+  Tooltip,
   useTheme,
   useMediaQuery,
 } from '@mui/material'
@@ -23,20 +25,66 @@ import {
   Palette as PaletteIcon,
   AutoAwesome as AutoAwesomeIcon,
   GitHub as GitHubIcon,
+  ExpandLess,
+  ExpandMore,
+  ViewSidebar as ViewSidebarIcon,
+  PlayCircleOutline,
+  Brush,
+  Animation,
+  Dashboard,
+  Widgets,
+  FormatColorFill,
+  TextFields,
+  GridOn,
 } from '@mui/icons-material'
 
 const drawerWidth = 280
+const collapsedDrawerWidth = 72
 
-const navItems = [
+interface NavItem {
+  text: string
+  icon: React.ReactNode
+  path?: string
+  children?: { text: string; icon: React.ReactNode; path: string }[]
+}
+
+const navItems: NavItem[] = [
   { text: 'Home', icon: <HomeIcon />, path: '/' },
   { text: 'Getting Started', icon: <AutoAwesomeIcon />, path: '/getting-started' },
-  { text: 'Tutorials', icon: <SchoolIcon />, path: '/tutorials' },
-  { text: 'Components', icon: <CodeIcon />, path: '/components' },
-  { text: 'Design Principles', icon: <PaletteIcon />, path: '/design-principles' },
+  {
+    text: 'Tutorials',
+    icon: <SchoolIcon />,
+    children: [
+      { text: 'Basics', icon: <PlayCircleOutline />, path: '/tutorials/basics' },
+      { text: 'Styling', icon: <Brush />, path: '/tutorials/styling' },
+      { text: 'Animations', icon: <Animation />, path: '/tutorials/animations' },
+      { text: 'Build a Dashboard', icon: <Dashboard />, path: '/tutorials/dashboard' },
+    ],
+  },
+  {
+    text: 'Components',
+    icon: <CodeIcon />,
+    children: [
+      { text: 'Buttons', icon: <Widgets />, path: '/components/buttons' },
+      { text: 'Forms', icon: <TextFields />, path: '/components/forms' },
+      { text: 'Layout', icon: <GridOn />, path: '/components/layout' },
+    ],
+  },
+  {
+    text: 'Design Principles',
+    icon: <PaletteIcon />,
+    children: [
+      { text: 'Color Theory', icon: <FormatColorFill />, path: '/design-principles/color' },
+      { text: 'Typography', icon: <TextFields />, path: '/design-principles/typography' },
+      { text: 'Spacing', icon: <GridOn />, path: '/design-principles/spacing' },
+    ],
+  },
 ]
 
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
+  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({})
   const navigate = useNavigate()
   const location = useLocation()
   const theme = useTheme()
@@ -46,32 +94,133 @@ export default function Layout() {
     setMobileOpen(!mobileOpen)
   }
 
+  const handleCollapseToggle = () => {
+    setCollapsed(!collapsed)
+    if (!collapsed) {
+      setExpandedMenus({}) // Collapse all submenus when drawer collapses
+    }
+  }
+
+  const handleMenuToggle = (text: string) => {
+    if (collapsed) {
+      setCollapsed(false) // Expand drawer when clicking parent with children
+    }
+    setExpandedMenus((prev) => ({ ...prev, [text]: !prev[text] }))
+  }
+
+  const isActive = (path?: string, children?: NavItem['children']) => {
+    if (path) return location.pathname === path
+    return children?.some((child) => location.pathname === child.path)
+  }
+
+  const currentDrawerWidth = collapsed && !isMobile ? collapsedDrawerWidth : drawerWidth
+
   const drawer = (
-    <Box sx={{ overflow: 'auto', py: 2 }}>
-      <Box sx={{ px: 3, py: 2, mb: 2 }}>
-        <Typography variant="h5" fontWeight={700} color="primary">
-          ✨ Design in Code
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Learn to build beautiful UIs
-        </Typography>
-      </Box>
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton
-              selected={location.pathname === item.path}
-              onClick={() => {
-                navigate(item.path)
-                if (isMobile) setMobileOpen(false)
+    <Box sx={{ overflow: 'auto', py: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {/* Header with toggle */}
+      <Box
+        sx={{
+          px: collapsed ? 1.5 : 2,
+          py: 1.5,
+          mb: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: collapsed ? 'center' : 'space-between',
+        }}
+      >
+        {collapsed ? (
+          <Tooltip title="Open sidebar" placement="right">
+            <IconButton
+              onClick={handleCollapseToggle}
+              sx={{
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: 2,
+                p: 1,
               }}
             >
-              <ListItemIcon sx={{ color: 'inherit', minWidth: 40 }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
+              <ViewSidebarIcon sx={{ fontSize: 20 }} />
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <>
+            <Typography variant="h6" fontWeight={700} color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+              ✨ Design in Code
+            </Typography>
+            {!isMobile && (
+              <Tooltip title="Close sidebar" placement="right">
+                <IconButton
+                  onClick={handleCollapseToggle}
+                  size="small"
+                  sx={{
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    borderRadius: 2,
+                  }}
+                >
+                  <ViewSidebarIcon sx={{ fontSize: 18 }} />
+                </IconButton>
+              </Tooltip>
+            )}
+          </>
+        )}
+      </Box>
+
+      {/* Navigation items */}
+      <List sx={{ flexGrow: 1, px: collapsed ? 0.5 : 1 }}>
+        {navItems.map((item) => (
+          <Box key={item.text}>
+            <ListItem disablePadding>
+              <Tooltip title={collapsed ? item.text : ''} placement="right">
+                <ListItemButton
+                  selected={isActive(item.path, item.children)}
+                  onClick={() => {
+                    if (item.children) {
+                      handleMenuToggle(item.text)
+                    } else if (item.path) {
+                      navigate(item.path)
+                      if (isMobile) setMobileOpen(false)
+                    }
+                  }}
+                  sx={{
+                    justifyContent: collapsed ? 'center' : 'flex-start',
+                    py: 1,
+                    px: collapsed ? 1.5 : 2,
+                    minHeight: 44,
+                  }}
+                >
+                  <ListItemIcon sx={{ color: 'inherit', minWidth: collapsed ? 0 : 36, justifyContent: 'center' }}>
+                    {item.icon}
+                  </ListItemIcon>
+                  {!collapsed && <ListItemText primary={item.text} slotProps={{ primary: { fontSize: '0.9rem' } }} />}
+                  {!collapsed && item.children && (
+                    expandedMenus[item.text] ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />
+                  )}
+                </ListItemButton>
+              </Tooltip>
+            </ListItem>
+            {item.children && !collapsed && (
+              <Collapse in={expandedMenus[item.text]} timeout="auto" unmountOnExit>
+                <List component="div" disablePadding>
+                  {item.children.map((child) => (
+                    <ListItem key={child.text} disablePadding>
+                      <ListItemButton
+                        selected={location.pathname === child.path}
+                        onClick={() => {
+                          navigate(child.path)
+                          if (isMobile) setMobileOpen(false)
+                        }}
+                        sx={{ pl: 4, py: 0.75 }}
+                      >
+                        <ListItemIcon sx={{ color: 'inherit', minWidth: 32 }}>
+                          {child.icon}
+                        </ListItemIcon>
+                        <ListItemText primary={child.text} slotProps={{ primary: { fontSize: '0.85rem' } }} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Collapse>
+            )}
+          </Box>
         ))}
       </List>
     </Box>
@@ -82,10 +231,14 @@ export default function Layout() {
       <AppBar
         position="fixed"
         sx={{
-          width: { md: `calc(100% - ${drawerWidth}px)` },
-          ml: { md: `${drawerWidth}px` },
+          width: { md: `calc(100% - ${currentDrawerWidth}px)` },
+          ml: { md: `${currentDrawerWidth}px` },
           bgcolor: 'background.paper',
           borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
         }}
         elevation={0}
       >
@@ -106,7 +259,14 @@ export default function Layout() {
       </AppBar>
       <Box
         component="nav"
-        sx={{ width: { md: drawerWidth }, flexShrink: { md: 0 } }}
+        sx={{
+          width: { md: currentDrawerWidth },
+          flexShrink: { md: 0 },
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+        }}
       >
         <Drawer
           variant={isMobile ? 'temporary' : 'permanent'}
@@ -116,7 +276,12 @@ export default function Layout() {
           sx={{
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
-              width: drawerWidth,
+              width: currentDrawerWidth,
+              transition: theme.transitions.create('width', {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+              }),
+              overflowX: 'hidden',
             },
           }}
         >
@@ -128,9 +293,13 @@ export default function Layout() {
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
+          width: { md: `calc(100% - ${currentDrawerWidth}px)` },
           minHeight: '100vh',
           mt: '64px',
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
         }}
       >
         <Outlet />
