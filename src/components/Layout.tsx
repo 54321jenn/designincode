@@ -123,44 +123,31 @@ export default function Layout() {
           px: collapsed ? 1.5 : 2,
           py: 1.5,
           mb: 1,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: collapsed ? 'center' : 'space-between',
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
-        {collapsed ? (
-          <Tooltip title="Open sidebar" placement="right">
-            <IconButton
-              onClick={handleCollapseToggle}
-              sx={{
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                borderRadius: 2,
-                p: 1,
-              }}
-            >
-              <ViewSidebarIcon sx={{ fontSize: 20 }} />
-            </IconButton>
-          </Tooltip>
-        ) : (
-          <>
-            <Typography variant="h6" fontWeight={700} color="primary" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              ✨ Design in Code
-            </Typography>
-            {!isMobile && (
-              <Tooltip title="Close sidebar" placement="right">
-                <IconButton
-                  onClick={handleCollapseToggle}
-                  size="small"
-                  sx={{
-                    border: '1px solid rgba(255, 255, 255, 0.12)',
-                    borderRadius: 2,
-                  }}
-                >
-                  <ViewSidebarIcon sx={{ fontSize: 18 }} />
-                </IconButton>
-              </Tooltip>
-            )}
-          </>
+        {/* Collapsed state: small D mark that links home */}
+        {collapsed && (
+          <Box onClick={() => navigate("/")} sx={{ cursor: "pointer" }}>
+            <img
+              src="/dic_light.svg"
+              alt="Home"
+              style={{ width: 32, height: 32, objectFit: "contain" }}
+            />
+          </Box>
+        )}
+
+        {/* Expanded state: full wide logo that links home */}
+        {!collapsed && (
+          <Box onClick={() => navigate("/")} sx={{ cursor: "pointer", width: "100%", overflow: "hidden" }}>
+            <img
+              src="/dic_vector_dark.svg"
+              alt="Design in Code logo"
+              style={{ width: "100%", height: "auto", maxHeight: 80, objectFit: "contain" }}
+            />
+          </Box>
         )}
       </Box>
 
@@ -242,20 +229,39 @@ export default function Layout() {
         }}
         elevation={0}
       >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Box sx={{ flexGrow: 1 }} />
-          <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank">
-            <GitHubIcon />
-          </IconButton>
-        </Toolbar>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{ mr: 1, display: { md: 'none' } }}
+        >
+          <MenuIcon />
+        </IconButton>
+
+        {/* Sidebar collapse/expand (desktop) */}
+        {!isMobile && (
+          <Tooltip title={collapsed ? "Open sidebar" : "Close sidebar"} placement="bottom">
+            <IconButton
+              color="inherit"
+              onClick={handleCollapseToggle}
+              sx={{
+                mr: 1.5,
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                borderRadius: 2,
+              }}
+            >
+              <ViewSidebarIcon />
+            </IconButton>
+          </Tooltip>
+        )}
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank">
+          <GitHubIcon />
+        </IconButton>
+      </Toolbar>
       </AppBar>
       <Box
         component="nav"

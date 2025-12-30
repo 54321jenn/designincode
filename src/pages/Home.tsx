@@ -34,7 +34,7 @@ export default function Home() {
       <Box sx={{ mb: 6, textAlign: 'center', py: 4 }}>
         <Chip label="Welcome to Design in Code" color="primary" sx={{ mb: 2 }} />
         <Typography variant="h1" gutterBottom>
-          Learn to Build Beautiful UIs
+          Learn to Design in Code
         </Typography>
         <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto' }}>
           Master the art of designing stunning user interfaces with React, Material UI, 
