@@ -311,7 +311,8 @@ export default function Layout() {
           p: 3,
           width: { md: `calc(100% - ${currentDrawerWidth}px)` },
           minHeight: '100vh',
-          mt: '64px',
+          // ✅ remove top gap only on home
+          mt: location.pathname === '/' ? 0 : '64px',
           transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,

@@ -1,6 +1,18 @@
-import { Box, Typography, Card, CardContent, CardActionArea, Chip, Stack } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  CardActionArea,
+  Chip,
+  Stack,
+  Container,
+} from '@mui/material'
 import { School, Code, Palette, AutoAwesome } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+
+// Adjust path to wherever you store the image
+import heroImage from '../assets/hero.png'
 
 const features = [
   {
@@ -57,85 +69,171 @@ export default function Home() {
   const navigate = useNavigate()
 
   return (
-    <Box>
-      {/* HERO SECTION */}
-      <Box sx={{ mb: 6, textAlign: 'center', py: 4 }}>
-        <Chip
-          label="Welcome to Design in Code"
-          color="primary"
-          sx={{ mb: 2, fontWeight: 600, px: 1 }}
-        />
-
-        <Typography variant="h1" sx={{ fontSize: { xs: '2.5rem', md: '4rem' }, fontWeight: 700, lineHeight: 1.05 }}>
-          Learn how to Design in Code!
-        </Typography>
-
-        <Typography variant="h6" color="text.secondary" sx={{ maxWidth: 600, mx: 'auto', mt: 2 }}>
-           Design like a pro. Build like a dev.
-        </Typography>
-      </Box>
-
-      {/* TILES GRID */}
-<Box
-  sx={{
-    display: 'grid',
-    gap: 3,
-    justifyContent: 'center',
-    gridTemplateColumns: {
-      xs: '1fr',
-      md: 'repeat(3, minmax(0, 1fr))',
-    },
-  }}
->
-  {features.map((feature) => (
-    <Box key={feature.title} sx={{ width: '100%' }}>
-      <Card
+    <Box sx={{ p: 0, m: 0 }}>
+      {/* HERO SECTION (single full-bleed background image behind text) */}
+      <Box
         sx={{
-          height: '100%',
-          borderRadius: 3,
-          border: '1px solid rgba(255,255,255,0.06)',
-          bgcolor: 'rgba(255,255,255,0.03)',
-          transition: 'transform 0.18s, box-shadow 0.18s, border-color 0.18s',
-          '&:hover': {
-            transform: 'translateY(-4px)',
-            boxShadow: `0 12px 36px ${feature.glow}33`,
-            borderColor: `${feature.glow}88`,
-          },
+          position: 'relative',
+          left: '50%',
+          ml: '-50vw',
+          width: '100vw',
+          minHeight: { xs: 360, md: 400 },
+          display: 'flex',
+          alignItems: 'center',
+          overflow: 'hidden',
+          mb: 6,
+
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
-        <CardActionArea onClick={() => navigate(feature.path)} sx={{ height: '100%' }}>
-          <CardContent>
-            <Stack spacing={2}>
-              <Box sx={{ color: feature.glow, textAlign: 'center' }}>{feature.icon}</Box>
+        {/* Overlay for readability */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'linear-gradient(180deg, rgba(6,8,20,0.55) 0%, rgba(6,8,20,0.78) 60%, rgba(6,8,20,0.92) 100%)',
+          }}
+        />
 
-              <Typography variant="h5" component="h2" sx={{ fontWeight: 700, textAlign: 'center' }}>
-                {feature.title}
-              </Typography>
+        {/* Subtle vignette/glow */}
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background:
+              'radial-gradient(60% 60% at 50% 35%, rgba(124,58,237,0.18) 0%, rgba(0,0,0,0) 60%)',
+            pointerEvents: 'none',
+          }}
+        />
 
-              <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', px: 1 }}>
-                {feature.description}
-              </Typography>
+        {/* Content */}
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: { xs: 8, md: 10 },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <Chip
+              label="Welcome to Design in Code"
+              sx={{
+                fontWeight: 700,
+                px: 1,
+                bgcolor: 'rgba(124,58,237,0.25)',
+                border: '1px solid rgba(124,58,237,0.45)',
+                color: 'rgba(255,255,255,0.92)',
+                backdropFilter: 'blur(8px)',
+              }}
+            />
 
-              {feature.chip && (
-                <Box sx={{ textAlign: 'center' }}>
-                  <Chip
-                    label={feature.chip}
-                    size="small"
-                    sx={{
-                      bgcolor: `${feature.glow}22`,
-                      border: `1px solid ${feature.glow}55`,
-                      fontWeight: 600,
-                    }}
-                  />
-                </Box>
-              )}
-            </Stack>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Box>
-  ))}
-</Box>
+            <Typography
+              variant="h1"
+              sx={{
+                fontSize: { xs: '2.4rem', md: '4.2rem' },
+                fontWeight: 800,
+                lineHeight: 1.05,
+                letterSpacing: '-0.02em',
+                textShadow: '0 8px 30px rgba(0,0,0,0.55)',
+                maxWidth: 980,
+              }}
+            >
+              Learn how to Design in Code!
+            </Typography>
+
+            <Typography
+              variant="h6"
+              sx={{
+                maxWidth: 680,
+                color: 'rgba(255,255,255,0.82)',
+                textShadow: '0 6px 24px rgba(0,0,0,0.45)',
+              }}
+            >
+              Design like a pro. Build like a dev.
+            </Typography>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* PAGE CONTENT (constrained) */}
+      <Container maxWidth="lg">
+        {/* TILES GRID */}
+        <Box
+          sx={{
+            display: 'grid',
+            gap: 3,
+            justifyContent: 'center',
+            gridTemplateColumns: {
+              xs: '1fr',
+              md: 'repeat(3, minmax(0, 1fr))',
+            },
+          }}
+        >
+          {features.map((feature) => (
+            <Box key={feature.title} sx={{ width: '100%' }}>
+              <Card
+                sx={{
+                  height: '100%',
+                  borderRadius: 3,
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  bgcolor: 'rgba(255,255,255,0.03)',
+                  transition: 'transform 0.18s, box-shadow 0.18s, border-color 0.18s',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: `0 12px 36px ${feature.glow}33`,
+                    borderColor: `${feature.glow}88`,
+                  },
+                }}
+              >
+                <CardActionArea onClick={() => navigate(feature.path)} sx={{ height: '100%' }}>
+                  <CardContent>
+                    <Stack spacing={2}>
+                      <Box sx={{ color: feature.glow, textAlign: 'center' }}>{feature.icon}</Box>
+
+                      <Typography
+                        variant="h5"
+                        component="h2"
+                        sx={{ fontWeight: 700, textAlign: 'center' }}
+                      >
+                        {feature.title}
+                      </Typography>
+
+                      <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        sx={{ textAlign: 'center', px: 1 }}
+                      >
+                        {feature.description}
+                      </Typography>
+
+                      {feature.chip && (
+                        <Box sx={{ textAlign: 'center' }}>
+                          <Chip
+                            label={feature.chip}
+                            size="small"
+                            sx={{
+                              bgcolor: `${feature.glow}22`,
+                              border: `1px solid ${feature.glow}55`,
+                              fontWeight: 600,
+                            }}
+                          />
+                        </Box>
+                      )}
+                    </Stack>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Container>
     </Box>
   )
 }
