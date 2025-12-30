@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Card, CardContent, CardActionArea, Chip, Stack } from '@mui/material'
+import { Box, Typography, Card, CardContent, CardActionArea, Chip, Stack } from '@mui/material'
 import { School, Code, Palette, AutoAwesome } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
@@ -76,61 +76,66 @@ export default function Home() {
       </Box>
 
       {/* TILES GRID */}
-      <Grid container spacing={3} justifyContent="center">
-        {features.map((feature) => (
-          <Grid item xs={12} md={4} key={feature.title}>
-            <Card
-              sx={{
-                height: '100%',
-                borderRadius: 3,
-                border: '1px solid rgba(255,255,255,0.06)',
-                bgcolor: 'rgba(255,255,255,0.03)',
-                transition: 'transform 0.18s, box-shadow 0.18s, border-color 0.18s',
-                '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: `0 12px 36px ${feature.glow}33`,
-                  borderColor: `${feature.glow}88`,
-                },
-              }}
-            >
-              <CardActionArea
-                onClick={() => navigate(feature.path)}
-                sx={{ height: '100%' }}
-              >
-                <CardContent>
-                  <Stack spacing={2}>
-                    <Box sx={{ color: feature.glow, textAlign: 'center' }}>
-                      {feature.icon}
-                    </Box>
+<Box
+  sx={{
+    display: 'grid',
+    gap: 3,
+    justifyContent: 'center',
+    gridTemplateColumns: {
+      xs: '1fr',
+      md: 'repeat(3, minmax(0, 1fr))',
+    },
+  }}
+>
+  {features.map((feature) => (
+    <Box key={feature.title} sx={{ width: '100%' }}>
+      <Card
+        sx={{
+          height: '100%',
+          borderRadius: 3,
+          border: '1px solid rgba(255,255,255,0.06)',
+          bgcolor: 'rgba(255,255,255,0.03)',
+          transition: 'transform 0.18s, box-shadow 0.18s, border-color 0.18s',
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            boxShadow: `0 12px 36px ${feature.glow}33`,
+            borderColor: `${feature.glow}88`,
+          },
+        }}
+      >
+        <CardActionArea onClick={() => navigate(feature.path)} sx={{ height: '100%' }}>
+          <CardContent>
+            <Stack spacing={2}>
+              <Box sx={{ color: feature.glow, textAlign: 'center' }}>{feature.icon}</Box>
 
-                    <Typography variant="h5" component="h2" sx={{ fontWeight: 700, textAlign: 'center' }}>
-                      {feature.title}
-                    </Typography>
+              <Typography variant="h5" component="h2" sx={{ fontWeight: 700, textAlign: 'center' }}>
+                {feature.title}
+              </Typography>
 
-                    <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', px: 1 }}>
-                      {feature.description}
-                    </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', px: 1 }}>
+                {feature.description}
+              </Typography>
 
-                    {feature.chip && (
-                      <Box sx={{ textAlign: 'center' }}>
-                        <Chip
-                          label={feature.chip}
-                          size="small"
-                          sx={{
-                            bgcolor: `${feature.glow}22`,
-                            border: `1px solid ${feature.glow}55`,
-                            fontWeight: 600,
-                          }}
-                        />
-                      </Box>
-                    )}
-                  </Stack>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+              {feature.chip && (
+                <Box sx={{ textAlign: 'center' }}>
+                  <Chip
+                    label={feature.chip}
+                    size="small"
+                    sx={{
+                      bgcolor: `${feature.glow}22`,
+                      border: `1px solid ${feature.glow}55`,
+                      fontWeight: 600,
+                    }}
+                  />
+                </Box>
+              )}
+            </Stack>
+          </CardContent>
+        </CardActionArea>
+      </Card>
+    </Box>
+  ))}
+</Box>
     </Box>
   )
 }
