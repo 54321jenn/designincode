@@ -5,10 +5,15 @@ import {
   CardContent,
   CardActionArea,
   Chip,
-  Stack,
   Container,
+  Button, 
+  Divider,
+  Stack, 
+  Link,
+  Tooltip,
+  IconButton
 } from '@mui/material'
-import { School, Code, Palette, AutoAwesome } from '@mui/icons-material'
+import { School, Code, Palette, AutoAwesome, GitHub, X, LinkedIn, FlightTakeoff, Bolt, Psychology } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
 // Adjust path to wherever you store the image
@@ -163,6 +168,126 @@ export default function Home() {
       </Box>
 
       {/* PAGE CONTENT (constrained) */}
+      {/* EXPLAINER SECTION */}
+<Container maxWidth="lg">
+  <Box
+    sx={{
+      mb: 5,
+      mt: { xs: 2, md: 3 },
+      px: { xs: 0, md: 1 },
+    }}
+  >
+    <Box
+      sx={{
+        borderRadius: 4,
+        border: '1px solid rgba(255,255,255,0.08)',
+        bgcolor: 'rgba(255,255,255,0.03)',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Top row */}
+      <Box sx={{ p: { xs: 3, md: 4 } }}>
+        <Typography variant="h4" sx={{ fontWeight: 800, letterSpacing: '-0.01em' }}>
+          A flight school for designers
+        </Typography>
+
+        <Typography
+          variant="body1"
+          sx={{
+            mt: 1.5,
+            color: 'rgba(255,255,255,0.78)',
+            maxWidth: 880,
+            lineHeight: 1.7,
+          }}
+        >
+          Design in Code teaches how to design hands on in code without becoming an engineer.
+          You’ll learn the minimum effective code, tooling, and workflows to build, iterate, and deliver with confidence.
+        </Typography>
+
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={1.5}
+          sx={{ mt: 3, alignItems: { sm: 'center' } }}
+        >
+          <Button
+            variant="contained"
+            onClick={() => navigate('/getting-started/editor')}
+            sx={{
+              borderRadius: 2.5,
+              px: 2.5,
+              py: 1.1,
+              fontWeight: 700,
+              bgcolor: 'rgba(124,58,237,0.9)',
+              '&:hover': { bgcolor: 'rgba(124,58,237,1)' },
+            }}
+          >
+            Start here: Editor Setup
+          </Button>
+
+          <Button
+            variant="outlined"
+            onClick={() => navigate('/getting-started/first-app')}
+            sx={{
+              borderRadius: 2.5,
+              px: 2.5,
+              py: 1.1,
+              fontWeight: 700,
+              borderColor: 'rgba(255,255,255,0.22)',
+              color: 'rgba(255,255,255,0.86)',
+              '&:hover': { borderColor: 'rgba(255,255,255,0.35)' },
+            }}
+          >
+            Jump to: First App
+          </Button>
+        </Stack>
+      </Box>
+
+      <Divider sx={{ borderColor: 'rgba(255,255,255,0.06)' }} />
+
+      {/* 3 pillars */}
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' },
+          gap: 0,
+        }}
+      >
+        {[
+          {
+            icon: <FlightTakeoff sx={{ fontSize: 26 }} />,
+            title: 'OJT, not courses',
+            body: 'Short “recipes” you can return to when you need them. No quiz trauma.',
+          },
+          {
+            icon: <Bolt sx={{ fontSize: 26 }} />,
+            title: 'Ship-first workflows',
+            body: 'Vite, GitHub, PRs, and tiny commits. Build momentum in minutes.',
+          },
+          {
+            icon: <Psychology sx={{ fontSize: 26 }} />,
+            title: 'Design stays in the cockpit',
+            body: 'You’ll stay a designer, but become lethal at delivery.',
+          },
+        ].map((item) => (
+          <Box
+            key={item.title}
+            sx={{
+              p: { xs: 3, md: 3.5 },
+              borderRight: { xs: 'none', md: '1px solid rgba(255,255,255,0.06)' },
+              '&:last-of-type': { borderRight: 'none' },
+            }}
+          >
+            <Box sx={{ color: 'rgba(124,58,237,0.95)' }}>{item.icon}</Box>
+            <Typography sx={{ mt: 1, fontWeight: 800 }}>{item.title}</Typography>
+            <Typography sx={{ mt: 0.8, color: 'rgba(255,255,255,0.72)', lineHeight: 1.6 }}>
+              {item.body}
+            </Typography>
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  </Box>
+</Container>
       <Container maxWidth="lg">
         {/* TILES GRID */}
         <Box
@@ -234,6 +359,115 @@ export default function Home() {
           ))}
         </Box>
       </Container>
+          {/* FOOTER */}
+<Box
+  sx={{
+    position: 'relative',
+    left: '50%',
+    ml: '-50vw',
+    width: '100vw',
+    mt: 10,
+    py: 6,
+    px: 3,
+    bgcolor: '#0a0d1f',
+    borderTop: '1px solid rgba(255,255,255,0.08)',
+  }}
+>
+  <Container maxWidth="lg">
+    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 4 }}>
+      
+      {/* Column 1 */}
+      <Box>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <FlightTakeoff sx={{ opacity: 0.8 }} />
+          <Typography sx={{ fontWeight: 800, fontSize: '1.1rem', opacity: 0.9 }}>
+            DesignInCode.ai
+          </Typography>
+        </Stack>
+        <Typography variant="body2" sx={{ mt: 1.2, opacity: 0.6, lineHeight: 1.7 }}>
+          A maker-enablement platform for designers who want to ship real software, fast, without surrendering the craft.
+        </Typography>
+        <Typography variant="body2" sx={{ mt: 2, opacity: 0.5 }}>
+          © 2025 DesignInCode.ai LLC
+        </Typography>
+        <Typography variant="caption" sx={{ display: 'block', mt: 0.5, opacity: 0.35 }}>
+          Built in Texas ✦ deployed everywhere
+        </Typography>
+      </Box>
+
+      {/* Column 2 */}
+      <Box sx={{ textAlign: { xs: 'left', md: 'center' } }}>
+        <Typography sx={{ fontWeight: 800, fontSize: '1rem', opacity: 0.8, mb: 1 }}>
+          Navigation
+        </Typography>
+        <Stack spacing={1}>
+          {[
+            { label: 'Getting Started', path: '/getting-started/editor' },
+            { label: 'Tutorials', path: '/tutorials/basics' },
+            { label: 'Components', path: '/components/buttons' },
+            { label: 'Design Principles', path: '/design-principles/color' },
+          ].map((link) => (
+            <Link
+              key={link.label}
+              onClick={() => navigate(link.path)}
+              sx={{ cursor: 'pointer', opacity: 0.55, '&:hover': { opacity: 0.85 } }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </Stack>
+      </Box>
+
+      {/* Column 3 */}
+      <Box sx={{ textAlign: { xs: 'left', md: 'right' } }}>
+        <Typography sx={{ fontWeight: 800, fontSize: '1rem', opacity: 0.8, mb: 1 }}>
+          Connect
+        </Typography>
+
+        <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'flex-start', md: 'flex-end' }}>
+          <Tooltip title="GitHub">
+            <IconButton
+              component="a"
+              href="https://github.com/54321jenn/designincode"
+              target="_blank"
+              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+            >
+              <GitHub />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="X / Twitter">
+            <IconButton
+              component="a"
+              href="https://x.com/designincodeAI"
+              target="_blank"
+              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+            >
+              <X />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="LinkedIn">
+            <IconButton
+              component="a"
+              href="https://linkedin.com/company/designincode"
+              target="_blank"
+              sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
+            >
+              <LinkedIn />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+
+        <Typography variant="body2" sx={{ mt: 2, opacity: 0.45 }}>
+          Made for designers who ship.
+        </Typography>
+      </Box>
+
     </Box>
+  </Container>
+</Box>
+    </Box>
+
   )
 }

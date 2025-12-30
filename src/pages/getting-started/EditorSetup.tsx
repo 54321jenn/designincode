@@ -6,7 +6,7 @@ export default function EditorSetup() {
   return (
     <GettingStartedLayout
       title="Editor Setup"
-      subtitle="Install VS Code and get your workspace ready."
+      subtitle="Get started by installing VS Code"
     >
       <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} alignItems={{ sm: 'center' }}>
         <Button
