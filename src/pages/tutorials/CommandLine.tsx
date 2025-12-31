@@ -1,4 +1,4 @@
-import { Paper, Typography, Box, Stack, Divider } from '@mui/material'
+import { Paper, Typography, Box, Divider } from '@mui/material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
 
 export default function CommandLine() {
