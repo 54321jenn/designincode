@@ -116,7 +116,7 @@ export default function Home() {
         />
 
         {/* Content */}
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3, md: 4 } }}>
           <Box
             sx={{
               textAlign: 'center',
@@ -125,6 +125,7 @@ export default function Home() {
               flexDirection: 'column',
               alignItems: 'center',
               gap: 2,
+              width: '100%',
             }}
           >
             <Chip
@@ -142,12 +143,16 @@ export default function Home() {
             <Typography
               variant="h1"
               sx={{
-                fontSize: { xs: '2.4rem', md: '4.2rem' },
+                fontSize: { xs: '2.4rem', sm: '3rem', md: '3rem', lg: '4.2rem' },
                 fontWeight: 800,
-                lineHeight: 1.05,
+                lineHeight: 1.15,
                 letterSpacing: '-0.02em',
                 textShadow: '0 8px 30px rgba(0,0,0,0.55)',
-                maxWidth: 980,
+                maxWidth: '100%',
+                width: '100%',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
+                hyphens: 'auto',
               }}
             >
               Learn how to Design in Code!
@@ -156,9 +161,12 @@ export default function Home() {
             <Typography
               variant="h6"
               sx={{
-                maxWidth: 680,
+                maxWidth: { xs: '100%', md: 680 },
+                px: { xs: 2, md: 0 },
                 color: 'rgba(255,255,255,0.82)',
                 textShadow: '0 6px 24px rgba(0,0,0,0.45)',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
               }}
             >
               Design like a pro. Build like a dev.
@@ -196,12 +204,14 @@ export default function Home() {
           sx={{
             mt: 1.5,
             color: 'rgba(255,255,255,0.78)',
-            maxWidth: 880,
+            maxWidth: { xs: '100%', md: 880 },
             lineHeight: 1.7,
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
           }}
         >
           Design in Code teaches how to design hands on in code without becoming an engineer.
-          You’ll learn the minimum effective code, tooling, and workflows to build, iterate, and deliver with confidence.
+          You'll learn the minimum effective code, tooling, and workflows to build, iterate, and deliver with confidence.
         </Typography>
 
         <Stack
@@ -364,53 +374,137 @@ export default function Home() {
   sx={{
     position: 'relative',
     left: '50%',
-    ml: '-50vw',
-    width: '100vw',
-    mt: 10,
-    py: 6,
-    px: 3,
+    ml: { xs: '-50vw', md: 'calc(-50vw + 140px)' }, // Account for expanded sidebar (280px / 2)
+    width: { xs: '100vw', md: 'calc(100vw - 280px)' }, // Full width minus expanded sidebar (worst case)
+    mt: { xs: 6, md: 10 },
+    mb: 0,
+    py: { xs: 4, md: 6 },
+    px: { xs: 2, sm: 3, md: 4 },
     bgcolor: '#0a0d1f',
     borderTop: '1px solid rgba(255,255,255,0.08)',
+    overflow: 'hidden',
+    boxSizing: 'border-box',
+    transition: 'width 0.3s ease, margin-left 0.3s ease', // Smooth transition when sidebar toggles
   }}
 >
-  <Container maxWidth="lg">
-    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: 'repeat(3, 1fr)' }, gap: 4 }}>
+  <Container 
+    maxWidth="lg" 
+    sx={{ 
+      px: { xs: 2, sm: 3, md: 3, lg: 4 },
+      width: '100%',
+      maxWidth: { xs: '100%', sm: '100%', md: '100%', lg: '1280px' },
+      boxSizing: 'border-box',
+      mb: 0,
+      pb: 0,
+    }}
+  >
+    <Box sx={{ 
+      display: 'grid', 
+      gridTemplateColumns: { xs: '1fr', sm: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' }, 
+      gap: { xs: 4, sm: 3, md: 3, lg: 4 },
+      width: '100%',
+      maxWidth: '100%',
+      boxSizing: 'border-box',
+      overflow: 'hidden',
+      mb: 0,
+      pb: 0,
+    }}>
       
       {/* Column 1 */}
-      <Box>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <FlightTakeoff sx={{ opacity: 0.8 }} />
-          <Typography sx={{ fontWeight: 800, fontSize: '1.1rem', opacity: 0.9 }}>
+      <Box sx={{ 
+        gridColumn: { xs: '1 / -1', sm: '1 / -1', md: '1 / -1', lg: 'auto' },
+        minWidth: 0,
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+      }}>
+        <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.2, flexWrap: 'wrap' }}>
+          <FlightTakeoff sx={{ opacity: 0.8, fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
+          <Typography sx={{ fontWeight: 800, fontSize: { xs: '1rem', md: '1.1rem' }, opacity: 0.9 }}>
             DesignInCode.ai
           </Typography>
         </Stack>
-        <Typography variant="body2" sx={{ mt: 1.2, opacity: 0.6, lineHeight: 1.7 }}>
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            mt: 1.2, 
+            opacity: 0.6, 
+            lineHeight: 1.7, 
+            wordWrap: 'break-word', 
+            overflowWrap: 'break-word',
+            fontSize: { xs: '0.875rem', md: '1rem' },
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+            overflow: 'hidden',
+          }}
+        >
           A maker-enablement platform for designers who want to ship real software, fast, without surrendering the craft.
         </Typography>
-        <Typography variant="body2" sx={{ mt: 2, opacity: 0.5 }}>
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            mt: 2, 
+            opacity: 0.5, 
+            fontSize: { xs: '0.8rem', md: '0.875rem' },
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           © 2025 DesignInCode.ai LLC
         </Typography>
-        <Typography variant="caption" sx={{ display: 'block', mt: 0.5, opacity: 0.35 }}>
+        <Typography 
+          variant="caption" 
+          sx={{ 
+            display: 'block', 
+            mt: 0.5, 
+            opacity: 0.35, 
+            fontSize: { xs: '0.7rem', md: '0.75rem' },
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           Built in Texas ✦ deployed everywhere
         </Typography>
       </Box>
 
       {/* Column 2 */}
-      <Box sx={{ textAlign: { xs: 'left', md: 'center' } }}>
-        <Typography sx={{ fontWeight: 800, fontSize: '1rem', opacity: 0.8, mb: 1 }}>
+      <Box sx={{ 
+        textAlign: { xs: 'left', md: 'left', lg: 'center' },
+        gridColumn: { xs: '1', sm: '1', md: '1', lg: 'auto' },
+        minWidth: 0,
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+      }}>
+        <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.9rem', md: '1rem' }, opacity: 0.8, mb: 1 }}>
           Navigation
         </Typography>
         <Stack spacing={1}>
           {[
             { label: 'Getting Started', path: '/getting-started/editor' },
-            { label: 'Tutorials', path: '/tutorials/basics' },
-            { label: 'Components', path: '/components/buttons' },
-            { label: 'Design Principles', path: '/design-principles/color' },
+            { label: 'Tutorials', path: '/tutorials/command-line' },
           ].map((link) => (
             <Link
               key={link.label}
               onClick={() => navigate(link.path)}
-              sx={{ cursor: 'pointer', opacity: 0.55, '&:hover': { opacity: 0.85 } }}
+              sx={{ 
+                cursor: 'pointer', 
+                opacity: 0.55, 
+                '&:hover': { opacity: 0.85 },
+                display: 'block',
+                wordWrap: 'break-word',
+                overflowWrap: 'break-word',
+                fontSize: { xs: '0.875rem', md: '1rem' },
+              }}
             >
               {link.label}
             </Link>
@@ -419,20 +513,29 @@ export default function Home() {
       </Box>
 
       {/* Column 3 */}
-      <Box sx={{ textAlign: { xs: 'left', md: 'right' } }}>
-        <Typography sx={{ fontWeight: 800, fontSize: '1rem', opacity: 0.8, mb: 1 }}>
+      <Box sx={{ 
+        textAlign: { xs: 'left', md: 'left', lg: 'right' },
+        gridColumn: { xs: '1', sm: '1', md: '2', lg: 'auto' },
+        minWidth: 0,
+        width: '100%',
+        maxWidth: '100%',
+        boxSizing: 'border-box',
+        overflow: 'hidden',
+      }}>
+        <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.9rem', md: '1rem' }, opacity: 0.8, mb: 1 }}>
           Connect
         </Typography>
 
-        <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'flex-start', md: 'flex-end' }}>
+        <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'flex-start', md: 'flex-end' }} sx={{ flexWrap: 'wrap' }}>
           <Tooltip title="GitHub">
             <IconButton
               component="a"
               href="https://github.com/54321jenn/designincode"
               target="_blank"
+              size="small"
               sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
             >
-              <GitHub />
+              <GitHub fontSize="small" />
             </IconButton>
           </Tooltip>
 
@@ -441,9 +544,10 @@ export default function Home() {
               component="a"
               href="https://x.com/designincodeAI"
               target="_blank"
+              size="small"
               sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
             >
-              <X />
+              <X fontSize="small" />
             </IconButton>
           </Tooltip>
 
@@ -452,14 +556,27 @@ export default function Home() {
               component="a"
               href="https://linkedin.com/company/designincode"
               target="_blank"
+              size="small"
               sx={{ opacity: 0.6, '&:hover': { opacity: 1 } }}
             >
-              <LinkedIn />
+              <LinkedIn fontSize="small" />
             </IconButton>
           </Tooltip>
         </Stack>
 
-        <Typography variant="body2" sx={{ mt: 2, opacity: 0.45 }}>
+        <Typography 
+          variant="body2" 
+          sx={{ 
+            mt: 2, 
+            opacity: 0.45, 
+            fontSize: { xs: '0.8rem', md: '0.875rem' },
+            wordWrap: 'break-word',
+            overflowWrap: 'break-word',
+            width: '100%',
+            maxWidth: '100%',
+            boxSizing: 'border-box',
+          }}
+        >
           Made for designers who ship.
         </Typography>
       </Box>

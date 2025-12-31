@@ -1,5 +1,6 @@
-import { Paper, Typography, Box, Divider } from '@mui/material'
+import { Paper, Typography, Box, Divider, Button, Stack, Alert } from '@mui/material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
+import { School } from '@mui/icons-material'
 
 export default function CommandLine() {
   return (
@@ -180,26 +181,28 @@ export default function CommandLine() {
           These commands help you move around your file system:
         </Typography>
 
-        <CodeBlock
-          label="See where you are"
-          code={`pwd
+        <Stack spacing={2}>
+          <CodeBlock
+            label="See where you are"
+            code={`pwd
 # Prints the current directory path`}
-        />
+          />
 
-        <CodeBlock
-          label="List files and folders"
-          code={`ls          # List files in current directory
+          <CodeBlock
+            label="List files and folders"
+            code={`ls          # List files in current directory
 ls -l       # List with details (permissions, size, date)
 ls -a       # List including hidden files (starting with .)`}
-        />
+          />
 
-        <CodeBlock
-          label="Change directory"
-          code={`cd folder-name        # Go into a folder
+          <CodeBlock
+            label="Change directory"
+            code={`cd folder-name        # Go into a folder
 cd ..                # Go up one level (parent folder)
 cd ~                 # Go to your home directory
 cd /                 # Go to root directory`}
-        />
+          />
+        </Stack>
       </Paper>
 
       <Divider sx={{ my: 2 }} />
@@ -212,29 +215,40 @@ cd /                 # Go to root directory`}
           Create, view, and manage files:
         </Typography>
 
-        <CodeBlock
-          label="Create files and folders"
-          code={`mkdir my-folder       # Create a new folder
+        <Stack spacing={2}>
+          <CodeBlock
+            label="Create files and folders"
+            code={`mkdir my-folder       # Create a new folder
 touch file.txt        # Create an empty file
 touch file1.txt file2.txt  # Create multiple files`}
-        />
+          />
 
-        <CodeBlock
-          label="View file contents"
-          code={`cat file.txt          # Display entire file
+          <CodeBlock
+            label="View file contents"
+            code={`cat file.txt          # Display entire file
 head file.txt         # Show first 10 lines
 tail file.txt         # Show last 10 lines
 less file.txt         # View file page by page (press 'q' to quit)`}
-        />
+          />
 
-        <CodeBlock
-          label="Copy, move, and delete"
-          code={`cp file.txt copy.txt           # Copy a file
+          <CodeBlock
+            label="Copy, move, and delete"
+            code={`cp file.txt copy.txt           # Copy a file
 cp -r folder/ new-folder/    # Copy a folder (recursive)
 mv file.txt new-name.txt     # Rename or move a file
 rm file.txt                  # Delete a file (careful!)
 rm -r folder/                # Delete a folder and contents`}
-        />
+          />
+        </Stack>
+        <Alert severity="warning" sx={{ mt: 2 }}>
+          <Typography variant="subtitle2" gutterBottom>
+            ⚠️ Be Careful
+          </Typography>
+          <Typography variant="body2">
+            Commands like <code>rm</code> (remove) are permanent. Always double-check what you're deleting. When in
+            doubt, use <code>ls</code> first to see what's in a folder before deleting.
+          </Typography>
+        </Alert>
       </Paper>
 
       <Divider sx={{ my: 2 }} />
@@ -271,35 +285,52 @@ rm -r folder/                # Delete a folder and contents`}
           Common Workflows
         </Typography>
 
-        <CodeBlock
-          label="Create a new project folder"
-          code={`mkdir my-project
+        <Stack spacing={2}>
+          <CodeBlock
+            label="Create a new project folder"
+            code={`mkdir my-project
 cd my-project
 touch README.md`}
-        />
+          />
 
-        <CodeBlock
-          label="Navigate to a specific folder"
-          code={`cd ~/Documents/my-folder
+          <CodeBlock
+            label="Navigate to a specific folder"
+            code={`cd ~/Documents/my-folder
 # Or use the full path:
 cd /Users/yourname/Documents/my-folder`}
-        />
+          />
 
-        <CodeBlock
-          label="Find a file"
-          code={`find . -name "file.txt"     # Search in current directory
+          <CodeBlock
+            label="Find a file"
+            code={`find . -name "file.txt"     # Search in current directory
 find ~ -name "*.js"          # Find all .js files in home directory`}
-        />
+          />
+        </Stack>
       </Paper>
 
-      <Paper sx={{ p: 2, bgcolor: 'warning.light', color: 'warning.contrastText' }}>
-        <Typography variant="subtitle2" gutterBottom>
-          ⚠️ Be Careful
+      <Paper sx={{ p: 3, bgcolor: 'primary.light', color: 'primary.contrastText' }}>
+        <Stack direction="row" spacing={2} alignItems="center" sx={{ mb: 2 }}>
+          <School />
+          <Typography variant="h6">
+            Want to Learn More?
+          </Typography>
+        </Stack>
+        <Typography variant="body2" paragraph>
+          If you want to dive deeper into the command line, check out this free Codecademy tutorial that covers
+          viewing and changing the file system, moving files, deleting files and directories, and more advanced
+          techniques.
         </Typography>
-        <Typography variant="body2">
-          Commands like <code>rm</code> (remove) are permanent. Always double-check what you're deleting. When in doubt,
-          use <code>ls</code> first to see what's in a folder before deleting.
-        </Typography>
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<School />}
+          href="https://www.codecademy.com/enrolled/courses/learn-the-command-line-viewing-and-changing-the-file-system"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{ mt: 1 }}
+        >
+          View Codecademy Tutorial
+        </Button>
       </Paper>
     </GettingStartedLayout>
   )

@@ -21,20 +21,15 @@ import {
   Home as HomeIcon,
   School as SchoolIcon,
   Code as CodeIcon,
-  Palette as PaletteIcon,
   AutoAwesome as AutoAwesomeIcon,
   GitHub as GitHubIcon,
   ExpandLess,
   ExpandMore,
   ViewSidebar as ViewSidebarIcon,
   PlayCircleOutline,
-  Brush,
-  Animation,
   Dashboard,
   Widgets,
-  FormatColorFill,
   TextFields,
-  GridOn,
   AutoFixHigh as AutoFixHighIcon,
   Terminal,
 } from '@mui/icons-material'
@@ -58,9 +53,6 @@ const navItems: NavItem[] = [
       { text: 'Editor Setup', icon: <TextFields />, path: '/getting-started/editor' },
       { text: 'AI Assistants', icon: <AutoFixHighIcon />, path: '/getting-started/assistants' },
       { text: 'Git + GitHub', icon: <GitHubIcon />, path: '/getting-started/git' },
-      { text: 'Toolchain', icon: <CodeIcon />, path: '/getting-started/toolchain' },
-      { text: 'UI Kit (MUI)', icon: <Widgets />, path: '/getting-started/mui' },
-      { text: 'First App', icon: <PlayCircleOutline />, path: '/getting-started/first-app' },
     ],
   },
   {
@@ -68,28 +60,10 @@ const navItems: NavItem[] = [
     icon: <SchoolIcon />,
     children: [
       { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
-      { text: 'Basics', icon: <PlayCircleOutline />, path: '/tutorials/basics' },
-      { text: 'Styling', icon: <Brush />, path: '/tutorials/styling' },
-      { text: 'Animations', icon: <Animation />, path: '/tutorials/animations' },
+      { text: 'Toolchain', icon: <CodeIcon />, path: '/getting-started/toolchain' },
+      { text: 'UI Kit (MUI)', icon: <Widgets />, path: '/getting-started/mui' },
+      { text: 'First App', icon: <PlayCircleOutline />, path: '/getting-started/first-app' },
       { text: 'Build a Dashboard', icon: <Dashboard />, path: '/tutorials/dashboard' },
-    ],
-  },
-  {
-    text: 'Components',
-    icon: <CodeIcon />,
-    children: [
-      { text: 'Buttons', icon: <Widgets />, path: '/components/buttons' },
-      { text: 'Forms', icon: <TextFields />, path: '/components/forms' },
-      { text: 'Layout', icon: <GridOn />, path: '/components/layout' },
-    ],
-  },
-  {
-    text: 'Design Principles',
-    icon: <PaletteIcon />,
-    children: [
-      { text: 'Color Theory', icon: <FormatColorFill />, path: '/design-principles/color' },
-      { text: 'Typography', icon: <TextFields />, path: '/design-principles/typography' },
-      { text: 'Spacing', icon: <GridOn />, path: '/design-principles/spacing' },
     ],
   },
 ]
@@ -312,6 +286,7 @@ export default function Layout() {
         sx={{
           flexGrow: 1,
           p: 3,
+          pb: location.pathname === '/' ? 0 : 3, // Remove bottom padding on home page
           width: { md: `calc(100% - ${currentDrawerWidth}px)` },
           minHeight: '100vh',
           // ✅ remove top gap only on home

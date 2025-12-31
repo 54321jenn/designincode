@@ -1,4 +1,6 @@
-import { Box, Typography, Stack, Paper } from '@mui/material'
+import { Box, Typography, Stack, Paper, IconButton, Tooltip } from '@mui/material'
+import { ContentCopy, Check } from '@mui/icons-material'
+import { useState } from 'react'
 
 export default function GettingStartedLayout({
   title,
@@ -24,6 +26,18 @@ export default function GettingStartedLayout({
 }
 
 export function CodeBlock({ label, code }: { label?: string; code: string }) {
+  const [copied, setCopied] = useState(false)
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(code)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy:', err)
+    }
+  }
+
   return (
     <Paper
       sx={{
@@ -32,13 +46,32 @@ export function CodeBlock({ label, code }: { label?: string; code: string }) {
         borderRadius: 2,
         fontFamily: 'monospace',
         overflow: 'auto',
+        position: 'relative',
       }}
     >
-      {label && (
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-          {label}
-        </Typography>
-      )}
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: label ? 1 : 0 }}>
+        {label && (
+          <Typography variant="caption" color="text.secondary">
+            {label}
+          </Typography>
+        )}
+        <Tooltip title={copied ? 'Copied!' : 'Copy code'}>
+          <IconButton
+            size="small"
+            onClick={handleCopy}
+            sx={{
+              color: copied ? '#4caf50' : '#8b949e',
+              '&:hover': {
+                color: copied ? '#4caf50' : '#c9d1d9',
+                bgcolor: 'rgba(255, 255, 255, 0.1)',
+              },
+              ml: 'auto',
+            }}
+          >
+            {copied ? <Check fontSize="small" /> : <ContentCopy fontSize="small" />}
+          </IconButton>
+        </Tooltip>
+      </Box>
       <pre style={{ margin: 0, color: '#e6edf3' }}>{code}</pre>
     </Paper>
   )
