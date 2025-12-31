@@ -1,6 +1,6 @@
 import { Paper, Typography, Box, Divider, Button, Stack } from '@mui/material'
-import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
-import { MergeType, School } from '@mui/icons-material'
+import GettingStartedLayout from '../getting-started/_GettingStartedLayout'
+import { School } from '@mui/icons-material'
 
 export default function PullRequests() {
   return (

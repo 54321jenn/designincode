@@ -1,6 +1,5 @@
-import { Paper, Typography, Box, Divider } from '@mui/material'
-import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
-import { CloudUpload } from '@mui/icons-material'
+import { Paper, Typography, Divider } from '@mui/material'
+import GettingStartedLayout from '../getting-started/_GettingStartedLayout'
 
 export default function VercelPublishing() {
   return (
