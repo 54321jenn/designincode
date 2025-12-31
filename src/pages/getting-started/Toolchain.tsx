@@ -1,4 +1,5 @@
-import { Paper, Typography, Divider } from '@mui/material'
+import { Paper, Typography, Divider, Stack, Box, Button } from '@mui/material'
+import { School, OpenInNew } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from './_GettingStartedLayout'
 
 export default function Toolchain() {
@@ -56,6 +57,28 @@ export default function Toolchain() {
         code={`node -v
 npm -v`}
       />
+
+      <Paper sx={{ p: 2, mt: 2, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <School sx={{ fontSize: 32 }} />
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography variant="body2" paragraph sx={{ mb: 1 }}>
+              Want to learn more? Explore React's official documentation and interactive tutorials to dive deeper into React concepts like components, props, state, hooks, and more advanced patterns.
+            </Typography>
+            <Button
+              variant="contained"
+              href="https://react.dev/learn"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              endIcon={<OpenInNew />}
+              sx={{ bgcolor: 'primary.contrastText', color: 'primary.dark', '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+            >
+              Visit React Tutorials
+            </Button>
+          </Box>
+        </Stack>
+      </Paper>
     </GettingStartedLayout>
   )
 }

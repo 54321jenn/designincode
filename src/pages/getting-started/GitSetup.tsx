@@ -1,4 +1,5 @@
-import { Paper, Typography, Box, Divider } from '@mui/material'
+import { Paper, Typography, Box, Divider, Stack, Button } from '@mui/material'
+import { School, OpenInNew } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from './_GettingStartedLayout'
 
 export default function GitSetup() {
@@ -80,6 +81,28 @@ git config --global user.email "you@example.com"`}
 git add .
 git commit -m "initial commit"`}
       />
+
+      <Paper sx={{ p: 2, mt: 2, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
+        <Stack direction="row" spacing={2} alignItems="center">
+          <School sx={{ fontSize: 32 }} />
+          <Box sx={{ flexGrow: 1 }}>
+            <Typography variant="body2" paragraph sx={{ mb: 1 }}>
+              Want to learn more about getting started with GitHub?
+            </Typography>
+            <Button
+              variant="contained"
+              href="https://docs.github.com/en/get-started/onboarding/getting-started-with-your-github-account"
+              target="_blank"
+              rel="noopener noreferrer"
+              size="small"
+              endIcon={<OpenInNew />}
+              sx={{ bgcolor: 'primary.contrastText', color: 'primary.dark', '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+            >
+              Learn More
+            </Button>
+          </Box>
+        </Stack>
+      </Paper>
     </GettingStartedLayout>
   )
 }

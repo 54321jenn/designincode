@@ -1,7 +1,7 @@
 import { Paper, Typography, Stack, Box, Card, CardContent, CardActionArea, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import GettingStartedLayout from './_GettingStartedLayout'
-import { Code, PlayArrow, Widgets, CloudUpload, School, OpenInNew } from '@mui/icons-material'
+import { Code, PlayArrow, Widgets, CloudUpload } from '@mui/icons-material'
 
 const steps = [
   {
@@ -105,31 +105,6 @@ export default function BuildWithReact() {
           </Card>
         ))}
       </Stack>
-
-      <Paper sx={{ p: 3, mt: 3, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
-        <Stack direction="row" spacing={2} alignItems="center">
-          <School sx={{ fontSize: 40 }} />
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              Want to learn more?
-            </Typography>
-            <Typography variant="body2" paragraph>
-              Explore React's official documentation and interactive tutorials to dive deeper into React concepts like
-              components, props, state, hooks, and more advanced patterns.
-            </Typography>
-            <Button
-              variant="contained"
-              href="https://react.dev/learn"
-              target="_blank"
-              rel="noopener noreferrer"
-              endIcon={<OpenInNew />}
-              sx={{ mt: 1 }}
-            >
-              Visit React Tutorials
-            </Button>
-          </Box>
-        </Stack>
-      </Paper>
     </GettingStartedLayout>
   )
 }

@@ -1,4 +1,4 @@
-import { Paper, Typography, Divider, Alert, Box, Button, Stack } from '@mui/material'
+import { Paper, Typography, Divider, Alert, Box, Button, Stack, Link } from '@mui/material'
 import GettingStartedLayout from './_GettingStartedLayout'
 import { Lightbulb, School, OpenInNew } from '@mui/icons-material'
 
@@ -198,17 +198,78 @@ export default function Assistants() {
             </li>
           </ul>
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          <strong>Note:</strong> If you're using Cursor, the built-in AI assistant is usually sufficient. Augment is
-          most useful if you're using VS Code and want AI assistance, or if you want extra features in Cursor.
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          To install Augment: Open your editor's extension marketplace, search for "Augment", install it, and sign in.
-        </Typography>
         <Alert icon={<Lightbulb />} severity="info" sx={{ mt: 2 }}>
           Augment offers a free tier with AI assistance included. There's also a paid tier available for additional AI
           features and higher usage limits beyond what the free tier provides.
         </Alert>
+
+        <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
+          Install Augment in VS Code (Recommended)
+        </Typography>
+        <Typography variant="body2" color="text.secondary" component="div">
+          <ol style={{ margin: 0, paddingLeft: 18 }}>
+            <li>
+              Click this link to open the VS Code Marketplace page for Augment:{' '}
+              <Link href="vscode:extension/augmentcode.augment" target="_blank" rel="noopener noreferrer" sx={{ fontFamily: 'monospace' }}>
+                vscode:extension/augmentcode.augment
+              </Link>
+            </li>
+            <li>Press Install in the Extensions view once it opens.</li>
+            <li>
+              After installation, open the Augment panel inside the editor using:{' '}
+              <code
+                style={{
+                  background: '#e0e0e0',
+                  color: '#000',
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontSize: '0.9em',
+                  fontWeight: 600,
+                  border: '1px solid #b0b0b0',
+                }}
+              >
+                Cmd/Ctrl + Shift + A
+              </code>
+            </li>
+          </ol>
+        </Typography>
+
+        <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
+          Install Augment in Cursor (Optional)
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          <strong>Note:</strong> If you're using Cursor, the built-in AI assistant is usually sufficient. Augment is
+          most useful if you're using VS Code and want AI assistance, or if you want extra features in Cursor.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" component="div">
+          <ol style={{ margin: 0, paddingLeft: 18 }}>
+            <li>
+              Click to open the Extensions marketplace page for Augment inside Cursor:{' '}
+              <Link href="cursor:extension/Augment.vscode-augment" target="_blank" rel="noopener noreferrer" sx={{ fontFamily: 'monospace' }}>
+                cursor:extension/Augment.vscode-augment
+              </Link>
+            </li>
+            <li>Hit Install in the Extensions view.</li>
+            <li>
+              Once installed, activate Augment's panel with:{' '}
+              <code
+                style={{
+                  background: '#e0e0e0',
+                  color: '#000',
+                  padding: '3px 8px',
+                  borderRadius: '4px',
+                  fontFamily: 'monospace',
+                  fontSize: '0.9em',
+                  fontWeight: 600,
+                  border: '1px solid #b0b0b0',
+                }}
+              >
+                Cmd/Ctrl + Shift + A
+              </code>
+            </li>
+          </ol>
+        </Typography>
         <Paper sx={{ p: 2, mt: 2, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
           <Stack direction="row" spacing={2} alignItems="center">
             <School sx={{ fontSize: 32 }} />
