@@ -1,6 +1,6 @@
-import { Paper, Typography, Divider, Alert, Box } from '@mui/material'
+import { Paper, Typography, Divider, Alert, Box, Button, Stack } from '@mui/material'
 import GettingStartedLayout from './_GettingStartedLayout'
-import { Lightbulb } from '@mui/icons-material'
+import { Lightbulb, School, OpenInNew } from '@mui/icons-material'
 
 export default function Assistants() {
   return (
@@ -152,6 +152,27 @@ export default function Assistants() {
           Cursor offers a free tier with AI assistance included. There's also a paid tier available for additional AI
           features and higher usage limits beyond what the free tier provides.
         </Alert>
+        <Paper sx={{ p: 2, mt: 2, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <School sx={{ fontSize: 32 }} />
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography variant="body2" paragraph sx={{ mb: 1 }}>
+                Want to deep dive into Cursor's features?
+              </Typography>
+              <Button
+                variant="contained"
+                href="https://cursor.com/docs/get-started/quickstart"
+                target="_blank"
+                rel="noopener noreferrer"
+                size="small"
+                endIcon={<OpenInNew />}
+                sx={{ bgcolor: 'primary.contrastText', color: 'primary.dark', '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+              >
+                Learn More
+              </Button>
+            </Box>
+          </Stack>
+        </Paper>
       </Paper>
 
       <Divider sx={{ my: 2 }} />
@@ -188,6 +209,27 @@ export default function Assistants() {
           Augment offers a free tier with AI assistance included. There's also a paid tier available for additional AI
           features and higher usage limits beyond what the free tier provides.
         </Alert>
+        <Paper sx={{ p: 2, mt: 2, bgcolor: 'primary.dark', color: 'primary.contrastText' }}>
+          <Stack direction="row" spacing={2} alignItems="center">
+            <School sx={{ fontSize: 32 }} />
+            <Box sx={{ flexGrow: 1 }}>
+              <Typography variant="body2" paragraph sx={{ mb: 1 }}>
+                Want to deep dive into Augment's features?
+              </Typography>
+              <Button
+                variant="contained"
+                href="https://docs.augmentcode.com/quickstart"
+                target="_blank"
+                rel="noopener noreferrer"
+                size="small"
+                endIcon={<OpenInNew />}
+                sx={{ bgcolor: 'primary.contrastText', color: 'primary.dark', '&:hover': { bgcolor: 'rgba(255,255,255,0.9)' } }}
+              >
+                Learn More
+              </Button>
+            </Box>
+          </Stack>
+        </Paper>
       </Paper>
     </GettingStartedLayout>
   )

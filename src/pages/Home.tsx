@@ -13,7 +13,7 @@ import {
   Tooltip,
   IconButton
 } from '@mui/material'
-import { Code, AutoAwesome, GitHub, X, LinkedIn, FlightTakeoff, Bolt, Psychology, DataObject, AllInclusive } from '@mui/icons-material'
+import { Code, AutoAwesome, GitHub, X, LinkedIn, FlightTakeoff, Bolt, Psychology, DataObject, AllInclusive, OpenInNew } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
 // Adjust path to wherever you store the image
@@ -131,7 +131,7 @@ export default function Home() {
                 hyphens: 'auto',
               }}
             >
-              Learn how to Design in Code!
+              Learn how to design in code!
             </Typography>
 
             <Typography
@@ -196,7 +196,7 @@ export default function Home() {
         >
           <Button
             variant="contained"
-            onClick={() => navigate('/getting-started/editor')}
+            onClick={() => navigate('/getting-started')}
             sx={{
               borderRadius: 2.5,
               px: 2.5,
@@ -385,6 +385,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
             sx={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 0.5,
               fontWeight: 800,
               fontSize: { xs: '1rem', md: '1.1rem' },
               opacity: 0.9,
@@ -394,6 +397,7 @@ export default function Home() {
             }}
           >
             MajorX.ai
+            <OpenInNew sx={{ fontSize: '0.875rem' }} />
           </Link>
         </Stack>
         <Typography 

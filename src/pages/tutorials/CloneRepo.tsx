@@ -1,4 +1,5 @@
 import { Paper, Typography, Box, Divider, Stack, Button } from '@mui/material'
+import { OpenInNew } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
 import { School } from '@mui/icons-material'
 
@@ -118,6 +119,7 @@ cd repository-name`}
                 href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh/about-ssh"
                 target="_blank"
                 rel="noopener noreferrer"
+                endIcon={<OpenInNew />}
                 sx={{ mt: 1 }}
               >
                 Go to GitHub SSH Documentation

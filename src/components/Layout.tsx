@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import { Outlet, useNavigate, useLocation } from 'react-router-dom'
+import { Outlet, useNavigate, useLocation, Link as RouterLink } from 'react-router-dom'
 import {
   Box,
   Drawer,
@@ -15,6 +15,9 @@ import {
   Tooltip,
   useTheme,
   useMediaQuery,
+  Breadcrumbs,
+  Link,
+  Typography,
 } from '@mui/material'
 import {
   Menu as MenuIcon,
@@ -36,6 +39,8 @@ import {
   MergeType,
   Group,
   Download,
+  LinkedIn,
+  X as XIcon,
 } from '@mui/icons-material'
 
 const drawerWidth = 280
@@ -53,16 +58,18 @@ const navItems: NavItem[] = [
   {
     text: 'Get Started',
     icon: <AutoAwesomeIcon />,
+    path: '/getting-started',
     children: [
       { text: 'Editor Setup', icon: <TextFields />, path: '/getting-started/editor' },
       { text: 'AI Assistants', icon: <AutoFixHighIcon />, path: '/getting-started/assistants' },
-      { text: 'Git + GitHub', icon: <GitHubIcon />, path: '/getting-started/git' },
       { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
+      { text: 'Git + GitHub', icon: <GitHubIcon />, path: '/getting-started/git' },
     ],
   },
   {
     text: 'Build with React',
     icon: <CodeIcon />,
+    path: '/build-react',
     children: [
       { text: 'Setup React', icon: <CodeIcon />, path: '/getting-started/toolchain' },
       { text: 'Quickstart with Vite', icon: <PlayArrow />, path: '/getting-started/quickstart-vite' },
@@ -112,6 +119,19 @@ export default function Layout() {
     }
   }, [location.pathname])
 
+  // Auto-expand menu if current page is a child of that menu
+  useEffect(() => {
+    navItems.forEach((item) => {
+      if (item.children) {
+        const isChildActive = item.children.some((child) => location.pathname === child.path)
+        if (isChildActive && !expandedMenus[item.text]) {
+          setExpandedMenus((prev) => ({ ...prev, [item.text]: true }))
+        }
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname])
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
   }
@@ -136,6 +156,38 @@ export default function Layout() {
   }
 
   const currentDrawerWidth = collapsed && !isMobile ? collapsedDrawerWidth : drawerWidth
+
+  // Generate breadcrumbs based on current pathname
+  const getBreadcrumbs = () => {
+    const pathname = location.pathname
+    const crumbs: { label: string; path: string }[] = []
+
+    // Always start with Home
+    if (pathname !== '/') {
+      crumbs.push({ label: 'Home', path: '/' })
+    }
+
+    // Find the matching page in navItems
+    for (const navItem of navItems) {
+      if (navItem.children) {
+        for (const child of navItem.children) {
+          if (child.path === pathname) {
+            crumbs.push({ label: navItem.text, path: navItem.path || '#' })
+            crumbs.push({ label: child.text, path: child.path })
+            return crumbs
+          }
+        }
+      } else if (navItem.path === pathname) {
+        // Home page - no breadcrumbs needed
+        return []
+      }
+    }
+
+    // If no match found, return just Home
+    return crumbs
+  }
+
+  const breadcrumbs = getBreadcrumbs()
 
   const drawer = (
     <Box sx={{ overflow: 'auto', py: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -182,11 +234,13 @@ export default function Layout() {
                 <ListItemButton
                   selected={isActive(item.path, item.children)}
                   onClick={() => {
-                    if (item.children) {
-                      handleMenuToggle(item.text)
-                    } else if (item.path) {
+                    if (item.path) {
                       navigate(item.path)
                       if (isMobile) setMobileOpen(false)
+                    }
+                    if (item.children) {
+                      // Always toggle menu if it has children
+                      handleMenuToggle(item.text)
                     }
                   }}
                   sx={{
@@ -280,7 +334,13 @@ export default function Layout() {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank">
+        <IconButton color="inherit" href="https://x.com/designincodeai" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
+          <XIcon />
+        </IconButton>
+        <IconButton color="inherit" href="https://www.linkedin.com/company/designincodeai" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
+          <LinkedIn />
+        </IconButton>
+        <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank" rel="noopener noreferrer">
           <GitHubIcon />
         </IconButton>
       </Toolbar>
@@ -332,6 +392,38 @@ export default function Layout() {
           }),
         }}
       >
+        {breadcrumbs.length > 0 && (
+          <Breadcrumbs
+            aria-label="breadcrumb"
+            sx={{ mb: 1.5, fontSize: '0.75rem' }}
+            separator="›"
+          >
+            {breadcrumbs.map((crumb, index) => {
+              const isLast = index === breadcrumbs.length - 1
+              return isLast ? (
+                <Typography key={crumb.path} color="text.primary" sx={{ fontSize: '0.75rem' }}>
+                  {crumb.label}
+                </Typography>
+              ) : (
+                <Link
+                  key={crumb.path}
+                  component={RouterLink}
+                  to={crumb.path}
+                  sx={{
+                    color: 'text.secondary',
+                    textDecoration: 'none',
+                    fontSize: '0.75rem',
+                    '&:hover': {
+                      textDecoration: 'underline',
+                    },
+                  }}
+                >
+                  {crumb.label}
+                </Link>
+              )
+            })}
+          </Breadcrumbs>
+        )}
         <Outlet />
       </Box>
     </Box>

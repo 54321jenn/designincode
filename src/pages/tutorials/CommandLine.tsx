@@ -1,6 +1,6 @@
 import { Paper, Typography, Box, Divider, Button, Stack, Alert } from '@mui/material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
-import { School } from '@mui/icons-material'
+import { School, OpenInNew } from '@mui/icons-material'
 
 export default function CommandLine() {
   return (
@@ -8,6 +8,27 @@ export default function CommandLine() {
       title="Command Line Basics"
       subtitle="Learn essential terminal commands for zsh and bash to navigate and work with files"
     >
+      <Box
+        sx={{
+          width: '100%',
+          mb: 3,
+          borderRadius: 2,
+          overflow: 'hidden',
+        }}
+      >
+        <img
+          src="/terminal.png"
+          alt="Command Line Hero"
+          style={{
+            width: '100%',
+            maxHeight: '300px',
+            height: 'auto',
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+      </Box>
+
       <Paper sx={{ p: 3 }}>
         <Typography variant="h6" gutterBottom>
           What is the Command Line?
@@ -324,6 +345,7 @@ find ~ -name "*.js"          # Find all .js files in home directory`}
           variant="contained"
           color="secondary"
           startIcon={<School />}
+          endIcon={<OpenInNew />}
           href="https://www.codecademy.com/enrolled/courses/learn-the-command-line-viewing-and-changing-the-file-system"
           target="_blank"
           rel="noopener noreferrer"

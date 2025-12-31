@@ -1,6 +1,6 @@
 import { Button, Paper, Typography, Stack, Divider, Link, Alert, Box } from '@mui/material'
+import { Download, Lightbulb, Widgets, OpenInNew } from '@mui/icons-material'
 import GettingStartedLayout from './_GettingStartedLayout'
-import { Download, Lightbulb, Widgets } from '@mui/icons-material'
 
 export default function EditorSetup() {
   return (
@@ -96,8 +96,9 @@ export default function EditorSetup() {
           </Button>
           <Typography variant="body2" color="text.secondary">
             Visit{' '}
-            <Link href="https://cursor.sh/" target="_blank" rel="noopener noreferrer">
+            <Link href="https://cursor.sh/" target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
               cursor.sh
+              <OpenInNew sx={{ fontSize: '0.875rem' }} />
             </Link>{' '}
             to download for your operating system
           </Typography>
@@ -133,8 +134,9 @@ export default function EditorSetup() {
           </Button>
           <Typography variant="body2" color="text.secondary">
             Visit{' '}
-            <Link href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer">
+            <Link href="https://code.visualstudio.com" target="_blank" rel="noopener noreferrer" sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5 }}>
               visualstudio.com
+              <OpenInNew sx={{ fontSize: '0.875rem' }} />
             </Link>{' '}
             to download for your operating system
           </Typography>

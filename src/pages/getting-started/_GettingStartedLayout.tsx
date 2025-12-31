@@ -1,6 +1,7 @@
 import { Box, Typography, Stack, Paper, IconButton, Tooltip } from '@mui/material'
 import { ContentCopy, Check } from '@mui/icons-material'
 import { useState } from 'react'
+import LessonNavigation from './LessonNavigation'
 
 export default function GettingStartedLayout({
   title,
@@ -21,6 +22,10 @@ export default function GettingStartedLayout({
       </Typography>
 
       <Stack spacing={3}>{children}</Stack>
+      
+      <Box sx={{ mt: 4 }}>
+        <LessonNavigation />
+      </Box>
     </Box>
   )
 }

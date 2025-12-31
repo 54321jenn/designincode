@@ -1,10 +1,12 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import Home from './pages/Home'
 import Tutorials from './pages/Tutorials'
 import Components from './pages/Components'
 import DesignPrinciples from './pages/DesignPrinciples'
 
+import GetStarted from './pages/getting-started/GetStarted'
+import BuildWithReact from './pages/getting-started/BuildWithReact'
 import EditorSetup from './pages/getting-started/EditorSetup'
 import Assistants from './pages/getting-started/Assistants'
 import GitSetup from './pages/getting-started/GitSetup'
@@ -36,7 +38,7 @@ function App() {
         <Route path="design-principles" element={<DesignPrinciples />} />
 
         <Route path="getting-started">
-          <Route index element={<Navigate to="editor" replace />} />
+          <Route index element={<GetStarted />} />
           <Route path="editor" element={<EditorSetup />} />
           <Route path="assistants" element={<Assistants />} />
           <Route path="git" element={<GitSetup />} />
@@ -44,6 +46,8 @@ function App() {
           <Route path="quickstart-vite" element={<QuickstartVite />} />
           <Route path="mui" element={<MuiSetup />} />
         </Route>
+
+        <Route path="build-react" element={<BuildWithReact />} />
 
         <Route path="*" element={<div style={{ padding: 24 }}>Coming soon</div>} />
       </Route>

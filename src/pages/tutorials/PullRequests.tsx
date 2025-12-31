@@ -1,6 +1,6 @@
 import { Paper, Typography, Box, Divider, Button, Stack } from '@mui/material'
 import GettingStartedLayout from '../getting-started/_GettingStartedLayout'
-import { School } from '@mui/icons-material'
+import { School, OpenInNew } from '@mui/icons-material'
 
 export default function PullRequests() {
   return (
@@ -85,6 +85,7 @@ export default function PullRequests() {
               href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests"
               target="_blank"
               rel="noopener noreferrer"
+              endIcon={<OpenInNew />}
               sx={{ mt: 1 }}
             >
               Go to GitHub Documentation
