@@ -340,7 +340,7 @@ export default function Layout() {
         <IconButton color="inherit" href="https://x.com/designincodeai" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
           <XIcon />
         </IconButton>
-        <IconButton color="inherit" href="https://www.linkedin.com/company/designincodeai" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
+        <IconButton color="inherit" href="https://linkedin.com/company/designincode" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
           <LinkedIn />
         </IconButton>
         <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank" rel="noopener noreferrer">
