@@ -1,4 +1,4 @@
-import { Paper, Typography } from '@mui/material'
+import { Paper, Typography, Box, Divider } from '@mui/material'
 import GettingStartedLayout, { CodeBlock } from './_GettingStartedLayout'
 
 export default function GitSetup() {
@@ -7,6 +7,58 @@ export default function GitSetup() {
       title="Git + GitHub"
       subtitle="Create a GitHub account, configure Git, and push your first repo."
     >
+      <Box
+        sx={{
+          width: '100%',
+          mb: 3,
+          borderRadius: 2,
+          overflow: 'hidden',
+        }}
+      >
+        <img
+          src="/github.png"
+          alt="Git + GitHub Hero"
+          style={{
+            width: '100%',
+            maxHeight: '300px',
+            height: 'auto',
+            objectFit: 'cover',
+            display: 'block',
+          }}
+        />
+      </Box>
+
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          What are Git and GitHub?
+        </Typography>
+        <Typography variant="body2" color="text.secondary" paragraph>
+          Think of Git and GitHub like a time machine and cloud storage for your code, combined with a collaboration
+          platform.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" component="div">
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            <li>
+              <strong>Git:</strong> A version control system that tracks changes to your code. It's like having a save
+              history where you can go back to any previous version, see what changed, and work on different features
+              without breaking your main code.
+            </li>
+            <li>
+              <strong>GitHub:</strong> A website that stores your code online (in "repositories" or "repos"). It's like
+              Google Drive for code, but with powerful features for collaboration, sharing, and showing your work to
+              others.
+            </li>
+          </ul>
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          Together, they let you save your work safely, collaborate with others, and never lose your code. Every time you
+          "commit" (save a snapshot), you create a checkpoint you can return to if something goes wrong. It's essential
+          for any coding project, big or small.
+        </Typography>
+      </Paper>
+
+      <Divider sx={{ my: 2 }} />
+
       <Paper sx={{ p: 2 }}>
         <Typography variant="subtitle1" gutterBottom>
           Create your GitHub account

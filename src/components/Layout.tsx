@@ -36,6 +36,7 @@ import {
   TextFields,
   GridOn,
   AutoFixHigh as AutoFixHighIcon,
+  Terminal,
 } from '@mui/icons-material'
 
 const drawerWidth = 280
@@ -66,6 +67,7 @@ const navItems: NavItem[] = [
     text: 'Tutorials',
     icon: <SchoolIcon />,
     children: [
+      { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
       { text: 'Basics', icon: <PlayCircleOutline />, path: '/tutorials/basics' },
       { text: 'Styling', icon: <Brush />, path: '/tutorials/styling' },
       { text: 'Animations', icon: <Animation />, path: '/tutorials/animations' },

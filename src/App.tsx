@@ -11,6 +11,7 @@ import GitSetup from './pages/getting-started/GitSetup'
 import Toolchain from './pages/getting-started/Toolchain'
 import MuiSetup from './pages/getting-started/MuiSetup'
 import FirstApp from './pages/getting-started/FirstApp'
+import CommandLine from './pages/tutorials/CommandLine'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Home />} />
         <Route path="tutorials" element={<Tutorials />} />
+        <Route path="tutorials/command-line" element={<CommandLine />} />
         <Route path="components" element={<Components />} />
         <Route path="design-principles" element={<DesignPrinciples />} />
 

@@ -1,12 +1,12 @@
 import { Paper, Typography, Divider, Alert, Box } from '@mui/material'
 import GettingStartedLayout from './_GettingStartedLayout'
-import { AutoFixHigh as AutoFixHighIcon } from '@mui/icons-material'
+import { Lightbulb } from '@mui/icons-material'
 
 export default function Assistants() {
   return (
     <GettingStartedLayout
       title="AI Assistants"
-      subtitle="AI assistants help you write code faster by suggesting code, explaining errors, and answering questions"
+      subtitle="Accelerate your coding workflow with AI-powered assistance that writes code, explains concepts, and helps you learn faster"
     >
       <Box
         sx={{
@@ -28,40 +28,56 @@ export default function Assistants() {
           }}
         />
       </Box>
-      <Alert icon={<AutoFixHighIcon />} severity="info" sx={{ mb: 3 }}>
-        AI coding assistants are like having a coding tutor by your side. They can help you write code, fix errors,
-        explain how things work, and suggest improvements—making learning to code much easier and faster.
-      </Alert>
+
+      <Paper sx={{ p: 3 }}>
+        <Typography variant="h6" gutterBottom>
+          What is an AI Assistant?
+        </Typography>
+        <Typography variant="body2" color="text.secondary" paragraph>
+          An AI assistant is like having a coding tutor by your side. It's a tool powered by artificial intelligence that
+          helps you write, understand, and improve code. Instead of searching through documentation or asking on forums,
+          you can ask the AI directly and get instant help.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" component="div">
+          <ul style={{ margin: 0, paddingLeft: 18 }}>
+            <li>
+              <strong>Write code for you:</strong> Describe what you want to build, and the AI generates the code
+            </li>
+            <li>
+              <strong>Explain code:</strong> Ask questions about any code snippet and get clear explanations in plain
+              English
+            </li>
+            <li>
+              <strong>Fix errors:</strong> When something breaks, the AI can help identify and fix the problem
+            </li>
+            <li>
+              <strong>Suggest improvements:</strong> Get recommendations to make your code better, faster, and more
+              efficient
+            </li>
+            <li>
+              <strong>Answer questions:</strong> Ask anything about coding concepts, syntax, or best practices
+            </li>
+            <li>
+              <strong>Learn as you code:</strong> Get explanations while you work, making it easier to understand what
+              you're building
+            </li>
+          </ul>
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          AI assistants make learning to code much easier and faster, especially for beginners. They're like having an
+          experienced developer available 24/7 to help you learn and build.
+        </Typography>
+      </Paper>
+
+      <Divider sx={{ my: 2 }} />
 
       <Paper sx={{ p: 3 }}>
         <Typography variant="h6" gutterBottom>
           Option 1: Cursor (Recommended)
         </Typography>
         <Typography variant="body2" color="text.secondary" paragraph>
-          Cursor is a code editor with AI assistance built right in. It's perfect for beginners because it can:
-        </Typography>
-        <Typography variant="body2" color="text.secondary" component="div">
-          <ul style={{ margin: 0, paddingLeft: 18 }}>
-            <li>
-              <strong>Write code for you:</strong> Describe what you want to build, and Cursor will generate the code
-            </li>
-            <li>
-              <strong>Explain code:</strong> Ask questions about any code, and get clear explanations in plain English
-            </li>
-            <li>
-              <strong>Fix errors:</strong> When something breaks, Cursor can help identify and fix the problem
-            </li>
-            <li>
-              <strong>Suggest improvements:</strong> Get recommendations to make your code better and more efficient
-            </li>
-            <li>
-              <strong>Answer questions:</strong> Ask anything about coding concepts, and get instant help
-            </li>
-          </ul>
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-          If you installed Cursor in the previous step, you're all set! The AI assistant is already built in and ready
-          to use.
+          Cursor is a code editor with AI assistance built right in. If you installed Cursor in the previous step,
+          you're all set! The AI assistant is already built in and ready to use.
         </Typography>
 
         <Typography variant="subtitle1" sx={{ mt: 3, mb: 1 }}>
@@ -132,6 +148,10 @@ export default function Assistants() {
             </li>
           </ol>
         </Typography>
+        <Alert icon={<Lightbulb />} severity="info" sx={{ mt: 3 }}>
+          Cursor offers a free tier with AI assistance included. There's also a paid tier available for additional AI
+          features and higher usage limits beyond what the free tier provides.
+        </Alert>
       </Paper>
 
       <Divider sx={{ my: 2 }} />
@@ -161,9 +181,13 @@ export default function Assistants() {
           <strong>Note:</strong> If you're using Cursor, the built-in AI assistant is usually sufficient. Augment is
           most useful if you're using VS Code and want AI assistance, or if you want extra features in Cursor.
         </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
           To install Augment: Open your editor's extension marketplace, search for "Augment", install it, and sign in.
         </Typography>
+        <Alert icon={<Lightbulb />} severity="info" sx={{ mt: 2 }}>
+          Augment offers a free tier with AI assistance included. There's also a paid tier available for additional AI
+          features and higher usage limits beyond what the free tier provides.
+        </Alert>
       </Paper>
     </GettingStartedLayout>
   )
