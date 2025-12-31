@@ -8,8 +8,10 @@ import DesignPrinciples from './pages/DesignPrinciples'
 import GetStarted from './pages/getting-started/GetStarted'
 import BuildWithReact from './pages/getting-started/BuildWithReact'
 import EditorSetup from './pages/getting-started/EditorSetup'
-import Assistants from './pages/getting-started/Assistants'
 import GitSetup from './pages/getting-started/GitSetup'
+import AIAssistants from './pages/ai-assistants/AIAssistants'
+import Cursor from './pages/ai-assistants/Cursor'
+import Augment from './pages/ai-assistants/Augment'
 import Toolchain from './pages/getting-started/Toolchain'
 import QuickstartVite from './pages/getting-started/QuickstartVite'
 import MuiSetup from './pages/getting-started/MuiSetup'
@@ -37,10 +39,15 @@ function App() {
         <Route path="components" element={<Components />} />
         <Route path="design-principles" element={<DesignPrinciples />} />
 
+        <Route path="ai-assistants">
+          <Route index element={<AIAssistants />} />
+          <Route path="cursor" element={<Cursor />} />
+          <Route path="augment" element={<Augment />} />
+        </Route>
+
         <Route path="getting-started">
           <Route index element={<GetStarted />} />
           <Route path="editor" element={<EditorSetup />} />
-          <Route path="assistants" element={<Assistants />} />
           <Route path="git" element={<GitSetup />} />
           <Route path="toolchain" element={<Toolchain />} />
           <Route path="quickstart-vite" element={<QuickstartVite />} />

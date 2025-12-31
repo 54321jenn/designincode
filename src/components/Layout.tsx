@@ -67,9 +67,17 @@ const navItems: NavItem[] = [
     path: '/getting-started',
     children: [
       { text: 'Editor Setup', icon: <TextFields />, path: '/getting-started/editor' },
-      { text: 'AI Assistants', icon: <AutoFixHighIcon />, path: '/getting-started/assistants' },
       { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
       { text: 'Git + GitHub', icon: <GitHubIcon />, path: '/getting-started/git' },
+    ],
+  },
+  {
+    text: 'AI Assistants',
+    icon: <AutoFixHighIcon />,
+    path: '/ai-assistants',
+    children: [
+      { text: 'Cursor', icon: <TextFields />, path: '/ai-assistants/cursor' },
+      { text: 'Augment', icon: <AutoFixHighIcon />, path: '/ai-assistants/augment' },
     ],
   },
   {
@@ -176,6 +184,16 @@ export default function Layout() {
 
     // Find the matching page in navItems
     for (const navItem of navItems) {
+      // Check if this is the parent path itself
+      if (navItem.path === pathname) {
+        // If it has children, it's a parent page - add it to breadcrumbs
+        if (navItem.children) {
+          crumbs.push({ label: navItem.text, path: navItem.path || '#' })
+        }
+        return crumbs
+      }
+      
+      // Check if this is a child path
       if (navItem.children) {
         for (const child of navItem.children) {
           if (child.path === pathname) {
@@ -184,9 +202,6 @@ export default function Layout() {
             return crumbs
           }
         }
-      } else if (navItem.path === pathname) {
-        // Home page - no breadcrumbs needed
-        return []
       }
     }
 

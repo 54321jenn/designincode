@@ -15,7 +15,7 @@ const steps = [
     title: 'AI Assistants',
     description: 'Set up AI coding assistants to help you write code faster, debug errors, and learn as you go.',
     icon: <AutoFixHigh />,
-    path: '/getting-started/assistants',
+    path: '/ai-assistants',
     order: 2,
   },
   {

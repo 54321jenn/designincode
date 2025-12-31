@@ -7,10 +7,15 @@ const lessonSequences: Record<string, string[]> = {
   'get-started': [
     '/getting-started',
     '/getting-started/editor',
-    '/getting-started/assistants',
+    '/ai-assistants',
     '/tutorials/command-line',
     '/getting-started/git',
     '/build-react',
+  ],
+  'ai-assistants': [
+    '/ai-assistants',
+    '/ai-assistants/cursor',
+    '/ai-assistants/augment',
   ],
   'build-react': [
     '/build-react',
@@ -27,7 +32,9 @@ const lessonSequences: Record<string, string[]> = {
 const pathToInfo: Record<string, { section: string; title: string }> = {
   '/getting-started': { section: 'get-started', title: 'Get Started' },
   '/getting-started/editor': { section: 'get-started', title: 'Editor Setup' },
-  '/getting-started/assistants': { section: 'get-started', title: 'AI Assistants' },
+  '/ai-assistants': { section: 'ai-assistants', title: 'AI Assistants' },
+  '/ai-assistants/cursor': { section: 'ai-assistants', title: 'Cursor' },
+  '/ai-assistants/augment': { section: 'ai-assistants', title: 'Augment' },
   '/getting-started/git': { section: 'get-started', title: 'Git + GitHub' },
   '/tutorials/command-line': { section: 'get-started', title: 'Command Line' },
   '/build-react': { section: 'build-react', title: 'Build with React' },
