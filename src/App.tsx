@@ -9,9 +9,15 @@ import EditorSetup from './pages/getting-started/EditorSetup'
 import Assistants from './pages/getting-started/Assistants'
 import GitSetup from './pages/getting-started/GitSetup'
 import Toolchain from './pages/getting-started/Toolchain'
+import QuickstartVite from './pages/getting-started/QuickstartVite'
 import MuiSetup from './pages/getting-started/MuiSetup'
-import FirstApp from './pages/getting-started/FirstApp'
 import CommandLine from './pages/tutorials/CommandLine'
+import MpcServers from './pages/tutorials/MpcServers'
+import VercelPublishing from './pages/tutorials/VercelPublishing'
+import SetupPython from './pages/tutorials/SetupPython'
+import HelloWorldStreamlit from './pages/tutorials/HelloWorldStreamlit'
+import PullRequests from './pages/tutorials/PullRequests'
+import CloneRepo from './pages/tutorials/CloneRepo'
 
 function App() {
   return (
@@ -20,6 +26,12 @@ function App() {
         <Route index element={<Home />} />
         <Route path="tutorials" element={<Tutorials />} />
         <Route path="tutorials/command-line" element={<CommandLine />} />
+        <Route path="tutorials/clone-repo" element={<CloneRepo />} />
+        <Route path="tutorials/pull-requests" element={<PullRequests />} />
+        <Route path="tutorials/mpc-servers" element={<MpcServers />} />
+        <Route path="tutorials/vercel-publishing" element={<VercelPublishing />} />
+        <Route path="tutorials/setup-python" element={<SetupPython />} />
+        <Route path="tutorials/hello-world-streamlit" element={<HelloWorldStreamlit />} />
         <Route path="components" element={<Components />} />
         <Route path="design-principles" element={<DesignPrinciples />} />
 
@@ -29,8 +41,8 @@ function App() {
           <Route path="assistants" element={<Assistants />} />
           <Route path="git" element={<GitSetup />} />
           <Route path="toolchain" element={<Toolchain />} />
+          <Route path="quickstart-vite" element={<QuickstartVite />} />
           <Route path="mui" element={<MuiSetup />} />
-          <Route path="first-app" element={<FirstApp />} />
         </Route>
 
         <Route path="*" element={<div style={{ padding: 24 }}>Coming soon</div>} />

@@ -13,7 +13,7 @@ import {
   Tooltip,
   IconButton
 } from '@mui/material'
-import { School, Code, Palette, AutoAwesome, GitHub, X, LinkedIn, FlightTakeoff, Bolt, Psychology } from '@mui/icons-material'
+import { Code, AutoAwesome, GitHub, X, LinkedIn, FlightTakeoff, Bolt, Psychology, DataObject, AllInclusive } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
 
 // Adjust path to wherever you store the image
@@ -21,52 +21,28 @@ import heroImage from '../assets/hero.png'
 
 const features = [
   {
-    title: 'Editor Setup',
-    description: 'Install Visual Studio Code and prep your workspace.',
+    title: 'Get Started',
+    description: 'Everything you need to begin your coding journey. Set up your tools, learn the basics, and get ready to build.',
     icon: <AutoAwesome sx={{ fontSize: 40 }} />,
     path: '/getting-started/editor',
     chip: 'Start here',
     glow: '#7c3aed',
   },
   {
-    title: 'AI Assistants',
-    description: 'Choose your co-pilot: Augment for VS Code or Cursor for speed.',
-    icon: <Palette sx={{ fontSize: 40 }} />,
-    path: '/getting-started/assistants',
-    chip: 'Pick one',
+    title: 'Build with React',
+    description: 'Create beautiful web applications with React. From setup to deployment, we\'ll guide you every step of the way.',
+    icon: <Code sx={{ fontSize: 40 }} />,
+    path: '/getting-started/toolchain',
+    chip: 'React apps',
     glow: '#6366f1',
   },
   {
-    title: 'Git + GitHub',
-    description: 'Create your GitHub account and push your first repo from VS Code.',
-    icon: <Code sx={{ fontSize: 40 }} />,
-    path: '/getting-started/git',
-    chip: 'Commit + push',
-    glow: '#ec4899',
-  },
-  {
-    title: 'Toolchain',
-    description: 'Install Homebrew, Node, scaffold React with Vite, and run it.',
-    icon: <School sx={{ fontSize: 40 }} />,
-    path: '/getting-started/toolchain',
-    chip: 'Dev tools',
+    title: 'Build with Python',
+    description: 'Create interactive applications and data tools with Python. Turn your creative ideas into working prototypes and useful tools.',
+    icon: <DataObject sx={{ fontSize: 40 }} />,
+    path: '/tutorials/setup-python',
+    chip: 'Python apps',
     glow: '#14b8a6',
-  },
-  {
-    title: 'UI Kit (MUI)',
-    description: 'Install Material UI and wire your theme.',
-    icon: <Palette sx={{ fontSize: 40 }} />,
-    path: '/getting-started/mui',
-    chip: 'UI kit',
-    glow: '#0ea5e9',
-  },
-  {
-    title: 'First App',
-    description: 'Scaffold, edit one thing, see it reload. Ship the win.',
-    icon: <AutoAwesome sx={{ fontSize: 40 }} />,
-    path: '/getting-started/first-app',
-    chip: 'Tiny change',
-    glow: '#8b5cf6',
   },
 ]
 
@@ -210,8 +186,7 @@ export default function Home() {
             overflowWrap: 'break-word',
           }}
         >
-          Design in Code teaches how to design hands on in code without becoming an engineer.
-          You'll learn the minimum effective code, tooling, and workflows to build, iterate, and deliver with confidence.
+          Learn how to build applications without all the technical jargon.  You'll learn the minimum effective code, tooling, and workflows to build, iterate, and deliver coded designs with confidence.
         </Typography>
 
         <Stack
@@ -231,23 +206,7 @@ export default function Home() {
               '&:hover': { bgcolor: 'rgba(124,58,237,1)' },
             }}
           >
-            Start here: Editor Setup
-          </Button>
-
-          <Button
-            variant="outlined"
-            onClick={() => navigate('/getting-started/first-app')}
-            sx={{
-              borderRadius: 2.5,
-              px: 2.5,
-              py: 1.1,
-              fontWeight: 700,
-              borderColor: 'rgba(255,255,255,0.22)',
-              color: 'rgba(255,255,255,0.86)',
-              '&:hover': { borderColor: 'rgba(255,255,255,0.35)' },
-            }}
-          >
-            Jump to: First App
+            Start here
           </Button>
         </Stack>
       </Box>
@@ -266,7 +225,7 @@ export default function Home() {
           {
             icon: <FlightTakeoff sx={{ fontSize: 26 }} />,
             title: 'OJT, not courses',
-            body: 'Short “recipes” you can return to when you need them. No quiz trauma.',
+            body: 'Short “recipes” you can return to when you need them. No quizzes, just hands-on learning.',
           },
           {
             icon: <Bolt sx={{ fontSize: 26 }} />,
@@ -275,8 +234,8 @@ export default function Home() {
           },
           {
             icon: <Psychology sx={{ fontSize: 26 }} />,
-            title: 'Design stays in the cockpit',
-            body: 'You’ll stay a designer, but become lethal at delivery.',
+            title: 'Collab directly with dev',
+            body: "No more waiting for design to be implemented.",
           },
         ].map((item) => (
           <Box
@@ -420,10 +379,22 @@ export default function Home() {
         overflow: 'hidden',
       }}>
         <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 1.2, flexWrap: 'wrap' }}>
-          <FlightTakeoff sx={{ opacity: 0.8, fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
-          <Typography sx={{ fontWeight: 800, fontSize: { xs: '1rem', md: '1.1rem' }, opacity: 0.9 }}>
-            DesignInCode.ai
-          </Typography>
+          <AllInclusive sx={{ opacity: 0.8, fontSize: { xs: '1.2rem', md: '1.5rem' } }} />
+          <Link
+            href="https://majorx.ai"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              fontWeight: 800,
+              fontSize: { xs: '1rem', md: '1.1rem' },
+              opacity: 0.9,
+              color: 'inherit',
+              textDecoration: 'none',
+              '&:hover': { opacity: 1, textDecoration: 'underline' },
+            }}
+          >
+            MajorX.ai
+          </Link>
         </Stack>
         <Typography 
           variant="body2" 
@@ -455,7 +426,7 @@ export default function Home() {
             boxSizing: 'border-box',
           }}
         >
-          © 2025 DesignInCode.ai LLC
+          © 2025 MajorX.ai LLC
         </Typography>
         <Typography 
           variant="caption" 
@@ -521,12 +492,20 @@ export default function Home() {
         maxWidth: '100%',
         boxSizing: 'border-box',
         overflow: 'hidden',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: { xs: 'flex-start', md: 'flex-start', lg: 'flex-end' },
       }}>
-        <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.9rem', md: '1rem' }, opacity: 0.8, mb: 1 }}>
+        <Typography sx={{ fontWeight: 800, fontSize: { xs: '0.9rem', md: '1rem' }, opacity: 0.8, mb: 1, width: '100%' }}>
           Connect
         </Typography>
 
-        <Stack direction="row" spacing={1.5} justifyContent={{ xs: 'flex-start', md: 'flex-end' }} sx={{ flexWrap: 'wrap' }}>
+        <Stack 
+          direction="row" 
+          spacing={1.5} 
+          justifyContent={{ xs: 'flex-start', md: 'flex-start', lg: 'flex-end' }}
+          sx={{ flexWrap: 'wrap', width: '100%' }}
+        >
           <Tooltip title="GitHub">
             <IconButton
               component="a"
@@ -575,6 +554,7 @@ export default function Home() {
             width: '100%',
             maxWidth: '100%',
             boxSizing: 'border-box',
+            textAlign: { xs: 'left', md: 'left', lg: 'right' },
           }}
         >
           Made for designers who ship.

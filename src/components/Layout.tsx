@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Outlet, useNavigate, useLocation } from 'react-router-dom'
 import {
   Box,
@@ -19,19 +19,23 @@ import {
 import {
   Menu as MenuIcon,
   Home as HomeIcon,
-  School as SchoolIcon,
   Code as CodeIcon,
   AutoAwesome as AutoAwesomeIcon,
   GitHub as GitHubIcon,
   ExpandLess,
   ExpandMore,
   ViewSidebar as ViewSidebarIcon,
-  PlayCircleOutline,
-  Dashboard,
   Widgets,
   TextFields,
   AutoFixHigh as AutoFixHighIcon,
   Terminal,
+  CloudUpload,
+  DataObject,
+  Settings,
+  PlayArrow,
+  MergeType,
+  Group,
+  Download,
 } from '@mui/icons-material'
 
 const drawerWidth = 280
@@ -47,23 +51,39 @@ interface NavItem {
 const navItems: NavItem[] = [
   { text: 'Home', icon: <HomeIcon />, path: '/' },
   {
-    text: 'Getting Started',
+    text: 'Get Started',
     icon: <AutoAwesomeIcon />,
     children: [
       { text: 'Editor Setup', icon: <TextFields />, path: '/getting-started/editor' },
       { text: 'AI Assistants', icon: <AutoFixHighIcon />, path: '/getting-started/assistants' },
       { text: 'Git + GitHub', icon: <GitHubIcon />, path: '/getting-started/git' },
+      { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
     ],
   },
   {
-    text: 'Tutorials',
-    icon: <SchoolIcon />,
+    text: 'Build with React',
+    icon: <CodeIcon />,
     children: [
-      { text: 'Command Line', icon: <Terminal />, path: '/tutorials/command-line' },
-      { text: 'Toolchain', icon: <CodeIcon />, path: '/getting-started/toolchain' },
+      { text: 'Setup React', icon: <CodeIcon />, path: '/getting-started/toolchain' },
+      { text: 'Quickstart with Vite', icon: <PlayArrow />, path: '/getting-started/quickstart-vite' },
       { text: 'UI Kit (MUI)', icon: <Widgets />, path: '/getting-started/mui' },
-      { text: 'First App', icon: <PlayCircleOutline />, path: '/getting-started/first-app' },
-      { text: 'Build a Dashboard', icon: <Dashboard />, path: '/tutorials/dashboard' },
+      { text: 'Publishing with Vercel', icon: <CloudUpload />, path: '/tutorials/vercel-publishing' },
+    ],
+  },
+  {
+    text: 'Build with Python',
+    icon: <DataObject />,
+    children: [
+      { text: 'Setup Python', icon: <Settings />, path: '/tutorials/setup-python' },
+      { text: 'Hello World with Streamlit', icon: <PlayArrow />, path: '/tutorials/hello-world-streamlit' },
+    ],
+  },
+  {
+    text: 'Collab with Dev Teams',
+    icon: <Group />,
+    children: [
+      { text: 'Clone a Repository', icon: <Download />, path: '/tutorials/clone-repo' },
+      { text: 'Pull Requests', icon: <MergeType />, path: '/tutorials/pull-requests' },
     ],
   },
 ]
@@ -76,6 +96,21 @@ export default function Layout() {
   const location = useLocation()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+  const prevPathnameRef = useRef<string>(location.pathname)
+
+  // Scroll to top on route change
+  useEffect(() => {
+    if (prevPathnameRef.current !== location.pathname) {
+      prevPathnameRef.current = location.pathname
+      // Scroll immediately
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      // Also scroll after a short delay to catch any late renders
+      const timeoutId = setTimeout(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+      }, 100)
+      return () => clearTimeout(timeoutId)
+    }
+  }, [location.pathname])
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)

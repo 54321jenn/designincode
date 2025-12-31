@@ -242,7 +242,7 @@ rm -r folder/                # Delete a folder and contents`}
         </Stack>
         <Alert severity="warning" sx={{ mt: 2 }}>
           <Typography variant="subtitle2" gutterBottom>
-            ⚠️ Be Careful
+            Be Careful
           </Typography>
           <Typography variant="body2">
             Commands like <code>rm</code> (remove) are permanent. Always double-check what you're deleting. When in
