@@ -12,6 +12,7 @@ import {
 } from '@mui/material'
 import { Code, AutoAwesome, FlightTakeoff, Bolt, Psychology, DataObject } from '@mui/icons-material'
 import { useNavigate } from 'react-router-dom'
+import { useThemeMode } from '../contexts/ThemeContext'
 
 // Adjust path to wherever you store the image
 import heroImage from '../assets/hero.png'
@@ -45,6 +46,7 @@ const features = [
 
 export default function Home() {
   const navigate = useNavigate()
+  const { mode } = useThemeMode()
 
   return (
     <Box sx={{ p: 0, m: 0 }}>
@@ -126,6 +128,7 @@ export default function Home() {
                 wordWrap: 'break-word',
                 overflowWrap: 'break-word',
                 hyphens: 'auto',
+                color: 'rgba(255,255,255,1)',
               }}
             >
               Learn how to design in code!
@@ -161,14 +164,28 @@ export default function Home() {
     <Box
       sx={{
         borderRadius: 4,
-        border: '1px solid rgba(255,255,255,0.08)',
-        bgcolor: 'rgba(255,255,255,0.03)',
+        border: mode === 'dark' 
+          ? '1px solid rgba(255,255,255,0.08)' 
+          : '1px solid rgba(0,0,0,0.12)',
+        bgcolor: mode === 'dark' 
+          ? 'rgba(255,255,255,0.03)' 
+          : 'rgba(255,255,255,0.03)',
+        boxShadow: mode === 'dark'
+          ? '0 2px 8px rgba(0,0,0,0.2), 0 1px 2px rgba(0,0,0,0.1)'
+          : '0 2px 8px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04)',
         overflow: 'hidden',
       }}
     >
       {/* Top row */}
       <Box sx={{ p: { xs: 3, md: 4 } }}>
-        <Typography variant="h4" sx={{ fontWeight: 800, letterSpacing: '-0.01em' }}>
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            fontWeight: 800, 
+            letterSpacing: '-0.01em',
+            color: mode === 'dark' ? 'inherit' : 'text.primary'
+          }}
+        >
           A flight school for designers
         </Typography>
 
@@ -176,7 +193,7 @@ export default function Home() {
           variant="body1"
           sx={{
             mt: 1.5,
-            color: 'rgba(255,255,255,0.78)',
+            color: mode === 'dark' ? 'rgba(255,255,255,0.78)' : 'rgba(0,0,0,0.75)',
             maxWidth: { xs: '100%', md: 880 },
             lineHeight: 1.7,
             wordWrap: 'break-word',
@@ -243,9 +260,9 @@ export default function Home() {
               '&:last-of-type': { borderRight: 'none' },
             }}
           >
-            <Box sx={{ color: 'rgba(124,58,237,0.95)' }}>{item.icon}</Box>
-            <Typography sx={{ mt: 1, fontWeight: 800 }}>{item.title}</Typography>
-            <Typography sx={{ mt: 0.8, color: 'rgba(255,255,255,0.72)', lineHeight: 1.6 }}>
+            <Box sx={{ color: mode === 'dark' ? 'rgba(124,58,237,0.95)' : 'rgba(124,58,237,0.85)' }}>{item.icon}</Box>
+            <Typography sx={{ mt: 1, fontWeight: 800, color: mode === 'dark' ? 'inherit' : 'text.primary' }}>{item.title}</Typography>
+            <Typography sx={{ mt: 0.8, color: mode === 'dark' ? 'rgba(255,255,255,0.72)' : 'rgba(0,0,0,0.7)', lineHeight: 1.6 }}>
               {item.body}
             </Typography>
           </Box>
@@ -273,8 +290,12 @@ export default function Home() {
                 sx={{
                   height: '100%',
                   borderRadius: 3,
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  bgcolor: 'rgba(255,255,255,0.03)',
+                  border: mode === 'dark' 
+                    ? '1px solid rgba(255,255,255,0.06)' 
+                    : '1px solid rgba(0,0,0,0.12)',
+                  bgcolor: mode === 'dark' 
+                    ? 'rgba(255,255,255,0.03)' 
+                    : 'rgba(255,255,255,0.03)',
                   transition: 'transform 0.18s, box-shadow 0.18s, border-color 0.18s',
                   '&:hover': {
                     transform: 'translateY(-4px)',

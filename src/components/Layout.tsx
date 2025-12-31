@@ -44,7 +44,10 @@ import {
   Download,
   LinkedIn,
   X as XIcon,
+  LightMode,
+  DarkMode,
 } from '@mui/icons-material'
+import { useThemeMode } from '../contexts/ThemeContext'
 
 const drawerWidth = 280
 const collapsedDrawerWidth = 72
@@ -105,6 +108,7 @@ export default function Layout() {
   const navigate = useNavigate()
   const location = useLocation()
   const theme = useTheme()
+  const { mode, toggleMode } = useThemeMode()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const prevPathnameRef = useRef<string>(location.pathname)
 
@@ -209,7 +213,7 @@ export default function Layout() {
         {collapsed && (
           <Box onClick={() => navigate("/")} sx={{ cursor: "pointer" }}>
             <img
-              src="/dic_light.svg"
+              src={mode === 'dark' ? "/dic_dark.png" : "/dic_light.png"}
               alt="Home"
               style={{ width: 32, height: 32, objectFit: "contain" }}
             />
@@ -220,7 +224,7 @@ export default function Layout() {
         {!collapsed && (
           <Box onClick={() => navigate("/")} sx={{ cursor: "pointer", width: "100%", overflow: "hidden" }}>
             <img
-              src="/dic_vector_dark.svg"
+              src={mode === 'dark' ? "/dic_full_dark.png" : "/dic_full_light.png"}
               alt="Design in Code logo"
               style={{ width: "100%", height: "auto", maxHeight: 80, objectFit: "contain" }}
             />
@@ -300,7 +304,9 @@ export default function Layout() {
           width: { md: `calc(100% - ${currentDrawerWidth}px)` },
           ml: { md: `${currentDrawerWidth}px` },
           bgcolor: 'background.paper',
-          borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+          borderBottom: mode === 'dark' 
+            ? '1px solid rgba(255, 255, 255, 0.08)' 
+            : '1px solid rgba(0, 0, 0, 0.12)',
           transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -313,7 +319,11 @@ export default function Layout() {
           color="inherit"
           edge="start"
           onClick={handleDrawerToggle}
-          sx={{ mr: 1, display: { md: 'none' } }}
+          sx={{ 
+            mr: 1, 
+            display: { md: 'none' },
+            color: mode === 'dark' ? 'inherit' : 'text.primary'
+          }}
         >
           <MenuIcon />
         </IconButton>
@@ -326,8 +336,11 @@ export default function Layout() {
               onClick={handleCollapseToggle}
               sx={{
                 mr: 1.5,
-                border: '1px solid rgba(255, 255, 255, 0.12)',
+                border: mode === 'dark' 
+                  ? '1px solid rgba(255, 255, 255, 0.12)' 
+                  : '1px solid rgba(0, 0, 0, 0.12)',
                 borderRadius: 2,
+                color: mode === 'dark' ? 'inherit' : 'text.primary'
               }}
             >
               <ViewSidebarIcon />
@@ -337,13 +350,51 @@ export default function Layout() {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <IconButton color="inherit" href="https://x.com/designincodeai" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
+        <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton 
+            color="inherit" 
+            onClick={toggleMode} 
+            sx={{ 
+              mr: 1,
+              color: mode === 'dark' ? 'inherit' : 'text.primary'
+            }}
+          >
+            {mode === 'dark' ? <LightMode /> : <DarkMode />}
+          </IconButton>
+        </Tooltip>
+        <IconButton 
+          color="inherit" 
+          href="https://x.com/designincodeai" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          sx={{ 
+            mr: 1,
+            color: mode === 'dark' ? 'inherit' : 'text.primary'
+          }}
+        >
           <XIcon />
         </IconButton>
-        <IconButton color="inherit" href="https://linkedin.com/company/designincode" target="_blank" rel="noopener noreferrer" sx={{ mr: 1 }}>
+        <IconButton 
+          color="inherit" 
+          href="https://linkedin.com/company/designincode" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          sx={{ 
+            mr: 1,
+            color: mode === 'dark' ? 'inherit' : 'text.primary'
+          }}
+        >
           <LinkedIn />
         </IconButton>
-        <IconButton color="inherit" href="https://github.com/54321jenn/designincode" target="_blank" rel="noopener noreferrer">
+        <IconButton 
+          color="inherit" 
+          href="https://github.com/54321jenn/designincode" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          sx={{
+            color: mode === 'dark' ? 'inherit' : 'text.primary'
+          }}
+        >
           <GitHubIcon />
         </IconButton>
       </Toolbar>
@@ -440,8 +491,10 @@ export default function Layout() {
             mb: 0,
             py: { xs: 4, md: 6 },
             px: { xs: 2, sm: 3, md: 4 },
-            bgcolor: '#0a0d1f',
-            borderTop: '1px solid rgba(255,255,255,0.08)',
+            bgcolor: mode === 'dark' ? '#0a0d1f' : '#f5f5f5',
+            borderTop: mode === 'dark' 
+              ? '1px solid rgba(255,255,255,0.08)' 
+              : '1px solid rgba(0,0,0,0.12)',
             overflow: 'hidden',
             boxSizing: 'border-box',
             transition: theme.transitions.create(['width', 'margin-left'], {

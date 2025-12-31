@@ -1,6 +1,5 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider, CssBaseline } from '@mui/material'
 import { BrowserRouter } from 'react-router-dom'
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -8,7 +7,7 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import './index.css'
 import App from './App.tsx'
-import { theme } from './theme'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 // Disable browser scroll restoration to prevent conflicts
 if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
@@ -18,8 +17,7 @@ if (typeof window !== 'undefined' && 'scrollRestoration' in window.history) {
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
+      <ThemeProvider>
         <App />
       </ThemeProvider>
     </BrowserRouter>

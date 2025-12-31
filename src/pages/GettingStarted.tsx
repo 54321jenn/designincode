@@ -1,5 +1,6 @@
 import { Box, Typography, Paper, Stack, Alert } from '@mui/material'
 import { Terminal, Lightbulb } from '@mui/icons-material'
+import { useThemeMode } from '../contexts/ThemeContext'
 
 const codeBlock = `npm create vite@latest my-app -- --template react-ts
 cd my-app
@@ -8,6 +9,10 @@ npm install @mui/icons-material @fontsource/roboto
 npm run dev`
 
 export default function GettingStarted() {
+  const { mode } = useThemeMode()
+  const codeBgColor = mode === 'dark' ? '#0d1117' : '#f6f8fa'
+  const codeTextColor = mode === 'dark' ? '#e6edf3' : '#24292f'
+
   return (
     <Box>
       <Typography variant="h2" gutterBottom>
@@ -32,7 +37,7 @@ export default function GettingStarted() {
           <Paper
             sx={{
               p: 2,
-              bgcolor: '#0d1117',
+              bgcolor: codeBgColor,
               borderRadius: 2,
               fontFamily: 'monospace',
               overflow: 'auto',
@@ -44,7 +49,7 @@ export default function GettingStarted() {
                 Terminal
               </Typography>
             </Stack>
-            <pre style={{ margin: 0, color: '#e6edf3' }}>
+            <pre style={{ margin: 0, color: codeTextColor }}>
               {codeBlock}
             </pre>
           </Paper>
