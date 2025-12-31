@@ -19,10 +19,6 @@ export default function GettingStartedLayout({
         {subtitle}
       </Typography>
 
-      <Alert icon={<Lightbulb />} severity="info" sx={{ mb: 3 }}>
-        Visual Studio Code is a lightweight editor with plugins to help make writing code really simple.
-      </Alert>
-
       <Stack spacing={3}>{children}</Stack>
     </Box>
   )
