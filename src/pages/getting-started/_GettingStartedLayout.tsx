@@ -1,5 +1,4 @@
-import { Box, Typography, Stack, Paper, Alert } from '@mui/material'
-import { Lightbulb } from '@mui/icons-material'
+import { Box, Typography, Stack, Paper } from '@mui/material'
 
 export default function GettingStartedLayout({
   title,
