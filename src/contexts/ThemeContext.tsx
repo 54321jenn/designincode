@@ -8,7 +8,6 @@ type ThemeMode = 'light' | 'dark'
 
 interface ThemeContextType {
   mode: ThemeMode
-  toggleMode: () => void
   theme: Theme
 }
 
@@ -22,14 +21,16 @@ export const useThemeMode = () => {
   return context
 }
 
-const getInitialMode = (): ThemeMode => {
-  // Check localStorage first
-  const savedMode = localStorage.getItem('themeMode') as ThemeMode
-  if (savedMode === 'light' || savedMode === 'dark') {
-    return savedMode
+const getSystemPreference = (): ThemeMode => {
+  if (typeof window !== 'undefined' && window.matchMedia) {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
   }
-  // Default to dark mode
   return 'dark'
+}
+
+const getInitialMode = (): ThemeMode => {
+  // Use system preference
+  return getSystemPreference()
 }
 
 const createAppTheme = (mode: ThemeMode): Theme => {
@@ -100,15 +101,35 @@ export const ThemeProvider = ({ children }: ThemeProviderProps) => {
 
   useEffect(() => {
     setTheme(createAppTheme(mode))
-    localStorage.setItem('themeMode', mode)
   }, [mode])
 
-  const toggleMode = () => {
-    setMode((prev) => (prev === 'light' ? 'dark' : 'light'))
-  }
+  // Listen for system theme changes
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) {
+      return
+    }
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = (e: MediaQueryListEvent) => {
+      setMode(e.matches ? 'dark' : 'light')
+    }
+
+    // Modern browsers
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleChange)
+      return () => mediaQuery.removeEventListener('change', handleChange)
+    } 
+    // Fallback for older browsers
+    else if (mediaQuery.addListener) {
+      // @ts-ignore - legacy API
+      mediaQuery.addListener(handleChange)
+      // @ts-ignore - legacy API
+      return () => mediaQuery.removeListener(handleChange)
+    }
+  }, [])
 
   return (
-    <ThemeContext.Provider value={{ mode, toggleMode, theme }}>
+    <ThemeContext.Provider value={{ mode, theme }}>
       <MuiThemeProvider theme={theme}>
         <CssBaseline />
         {children}

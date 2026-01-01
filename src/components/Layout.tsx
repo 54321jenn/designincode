@@ -44,8 +44,6 @@ import {
   Download,
   LinkedIn,
   X as XIcon,
-  LightMode,
-  DarkMode,
 } from '@mui/icons-material'
 import { useThemeMode } from '../contexts/ThemeContext'
 
@@ -116,7 +114,7 @@ export default function Layout() {
   const navigate = useNavigate()
   const location = useLocation()
   const theme = useTheme()
-  const { mode, toggleMode } = useThemeMode()
+  const { mode } = useThemeMode()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const prevPathnameRef = useRef<string>(location.pathname)
 
@@ -365,18 +363,6 @@ export default function Layout() {
 
         <Box sx={{ flexGrow: 1 }} />
 
-        <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
-          <IconButton 
-            color="inherit" 
-            onClick={toggleMode} 
-            sx={{ 
-              mr: 1,
-              color: mode === 'dark' ? 'inherit' : 'text.primary'
-            }}
-          >
-            {mode === 'dark' ? <LightMode /> : <DarkMode />}
-          </IconButton>
-        </Tooltip>
         <IconButton 
           color="inherit" 
           href="https://x.com/designincodeai" 
