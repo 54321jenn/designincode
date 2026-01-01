@@ -50,11 +50,18 @@ import { useThemeMode } from '../contexts/ThemeContext'
 const drawerWidth = 280
 const collapsedDrawerWidth = 72
 
-interface NavItem {
+interface NavChild {
   text: string
   icon: React.ReactNode
   path?: string
   children?: { text: string; icon: React.ReactNode; path: string }[]
+}
+
+interface NavItem {
+  text: string
+  icon: React.ReactNode
+  path?: string
+  children?: NavChild[]
 }
 
 const navItems: NavItem[] = [
@@ -74,8 +81,32 @@ const navItems: NavItem[] = [
     icon: <AutoFixHighIcon />,
     path: '/ai-assistants',
     children: [
-      { text: 'Cursor', icon: <TextFields />, path: '/ai-assistants/cursor' },
-      { text: 'Augment', icon: <AutoFixHighIcon />, path: '/ai-assistants/augment' },
+      {
+        text: 'Do it for me (Beginner)',
+        icon: <AutoAwesomeIcon />,
+        children: [
+          { text: 'Loveable', icon: <CodeIcon />, path: '/ai-assistants/loveable' },
+          { text: 'v0 (by Vercel)', icon: <CodeIcon />, path: '/ai-assistants/v0' },
+          { text: 'Bolt.net', icon: <CodeIcon />, path: '/ai-assistants/bolt' },
+        ],
+      },
+      {
+        text: 'Do it with me (Advanced)',
+        icon: <AutoFixHighIcon />,
+        children: [
+          { text: 'Cursor', icon: <TextFields />, path: '/ai-assistants/cursor' },
+          { text: 'Augment', icon: <AutoFixHighIcon />, path: '/ai-assistants/augment' },
+        ],
+      },
+      {
+        text: 'Help me learn',
+        icon: <AutoAwesomeIcon />,
+        children: [
+          { text: 'ChatGPT', icon: <AutoFixHighIcon />, path: '/ai-assistants/chatgpt' },
+          { text: 'Claude', icon: <AutoFixHighIcon />, path: '/ai-assistants/claude' },
+          { text: 'Grok', icon: <AutoFixHighIcon />, path: '/ai-assistants/grok' },
+        ],
+      },
     ],
   },
   {
@@ -95,6 +126,17 @@ const navItems: NavItem[] = [
     children: [
       { text: 'Setup Python', icon: <Settings />, path: '/tutorials/setup-python' },
       { text: 'Hello World with Streamlit', icon: <PlayArrow />, path: '/tutorials/hello-world-streamlit' },
+    ],
+  },
+  {
+    text: 'Build From Scratch',
+    icon: <CodeIcon />,
+    children: [
+      { text: 'HTML', icon: <CodeIcon />, path: '/tutorials/html' },
+      { text: 'JavaScript', icon: <CodeIcon />, path: '/tutorials/javascript' },
+      { text: 'CSS', icon: <CodeIcon />, path: '/tutorials/css' },
+      { text: 'Python', icon: <DataObject />, path: '/tutorials/python' },
+      { text: 'Troubleshooting', icon: <Settings />, path: '/tutorials/troubleshooting' },
     ],
   },
   {
@@ -136,10 +178,28 @@ export default function Layout() {
   useEffect(() => {
     navItems.forEach((item) => {
       if (item.children) {
-        const isChildActive = item.children.some((child) => location.pathname === child.path)
+        const isChildActive = item.children.some((child) => {
+          if (child.path === location.pathname) return true
+          if (child.children) {
+            return child.children.some((grandchild) => grandchild.path === location.pathname)
+          }
+          return false
+        })
         if (isChildActive && !expandedMenus[item.text]) {
           setExpandedMenus((prev) => ({ ...prev, [item.text]: true }))
         }
+        // Also expand nested children if active
+        item.children.forEach((child) => {
+          if (child.children) {
+            const isGrandchildActive = child.children.some((grandchild) => grandchild.path === location.pathname)
+            if (isGrandchildActive) {
+              const childKey = `${item.text}-${child.text}`
+              if (!expandedMenus[childKey]) {
+                setExpandedMenus((prev) => ({ ...prev, [childKey]: true }))
+              }
+            }
+          }
+        })
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -182,22 +242,38 @@ export default function Layout() {
 
     // Find the matching page in navItems
     for (const navItem of navItems) {
+      // Skip Home item
+      if (navItem.path === '/') continue
+
       // Check if this is the parent path itself
       if (navItem.path === pathname) {
-        // If it has children, it's a parent page - add it to breadcrumbs
-        if (navItem.children) {
-          crumbs.push({ label: navItem.text, path: navItem.path || '#' })
-        }
+        crumbs.push({ label: navItem.text, path: navItem.path })
         return crumbs
       }
       
-      // Check if this is a child path
+      // Check if this is a child or grandchild path
       if (navItem.children) {
         for (const child of navItem.children) {
+          // Check if this is a direct child
           if (child.path === pathname) {
+            // Always include parent, use path if available or '#' if not
             crumbs.push({ label: navItem.text, path: navItem.path || '#' })
             crumbs.push({ label: child.text, path: child.path })
             return crumbs
+          }
+
+          // Check if this is a grandchild
+          if (child.children) {
+            for (const grandchild of child.children) {
+              if (grandchild.path === pathname) {
+                // Always include parent, use path if available or '#' if not
+                crumbs.push({ label: navItem.text, path: navItem.path || '#' })
+                // Include middle level (child), use path if available or '#' if not
+                crumbs.push({ label: child.text, path: child.path || '#' })
+                crumbs.push({ label: grandchild.text, path: grandchild.path })
+                return crumbs
+              }
+            }
           }
         }
       }
@@ -283,23 +359,59 @@ export default function Layout() {
             {item.children && !collapsed && (
               <Collapse in={expandedMenus[item.text]} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
-                  {item.children.map((child) => (
-                    <ListItem key={child.text} disablePadding>
-                      <ListItemButton
-                        selected={location.pathname === child.path}
-                        onClick={() => {
-                          navigate(child.path)
-                          if (isMobile) setMobileOpen(false)
-                        }}
-                        sx={{ pl: 4, py: 0.75 }}
-                      >
-                        <ListItemIcon sx={{ color: 'inherit', minWidth: 32 }}>
-                          {child.icon}
-                        </ListItemIcon>
-                        <ListItemText primary={child.text} slotProps={{ primary: { fontSize: '0.85rem' } }} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
+                  {item.children.map((child) => {
+                    const childKey = `${item.text}-${child.text}`
+                    const hasGrandchildren = child.children && child.children.length > 0
+                    return (
+                      <Box key={child.text}>
+                        <ListItem disablePadding>
+                          <ListItemButton
+                            selected={!hasGrandchildren && location.pathname === child.path}
+                            onClick={() => {
+                              if (hasGrandchildren) {
+                                handleMenuToggle(childKey)
+                              } else if (child.path) {
+                                navigate(child.path)
+                                if (isMobile) setMobileOpen(false)
+                              }
+                            }}
+                            sx={{ pl: 4, py: 0.75 }}
+                          >
+                            <ListItemIcon sx={{ color: 'inherit', minWidth: 32 }}>
+                              {child.icon}
+                            </ListItemIcon>
+                            <ListItemText primary={child.text} slotProps={{ primary: { fontSize: '0.85rem' } }} />
+                            {hasGrandchildren && (
+                              expandedMenus[childKey] ? <ExpandLess fontSize="small" /> : <ExpandMore fontSize="small" />
+                            )}
+                          </ListItemButton>
+                        </ListItem>
+                        {hasGrandchildren && (
+                          <Collapse in={expandedMenus[childKey]} timeout="auto" unmountOnExit>
+                            <List component="div" disablePadding>
+                              {child.children!.map((grandchild) => (
+                                <ListItem key={grandchild.text} disablePadding>
+                                  <ListItemButton
+                                    selected={location.pathname === grandchild.path}
+                                    onClick={() => {
+                                      navigate(grandchild.path)
+                                      if (isMobile) setMobileOpen(false)
+                                    }}
+                                    sx={{ pl: 6, py: 0.75 }}
+                                  >
+                                    <ListItemIcon sx={{ color: 'inherit', minWidth: 32 }}>
+                                      {grandchild.icon}
+                                    </ListItemIcon>
+                                    <ListItemText primary={grandchild.text} slotProps={{ primary: { fontSize: '0.85rem' } }} />
+                                  </ListItemButton>
+                                </ListItem>
+                              ))}
+                            </List>
+                          </Collapse>
+                        )}
+                      </Box>
+                    )
+                  })}
                 </List>
               </Collapse>
             )}
@@ -455,13 +567,27 @@ export default function Layout() {
           >
             {breadcrumbs.map((crumb, index) => {
               const isLast = index === breadcrumbs.length - 1
-              return isLast ? (
-                <Typography key={crumb.path} color="text.primary" sx={{ fontSize: '0.75rem' }}>
-                  {crumb.label}
-                </Typography>
-              ) : (
+              const isNonClickable = crumb.path === '#'
+              
+              if (isLast) {
+                return (
+                  <Typography key={`${crumb.label}-${index}`} color="text.primary" sx={{ fontSize: '0.75rem' }}>
+                    {crumb.label}
+                  </Typography>
+                )
+              }
+              
+              if (isNonClickable) {
+                return (
+                  <Typography key={`${crumb.label}-${index}`} color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+                    {crumb.label}
+                  </Typography>
+                )
+              }
+              
+              return (
                 <Link
-                  key={crumb.path}
+                  key={`${crumb.label}-${index}`}
                   component={RouterLink}
                   to={crumb.path}
                   sx={{
