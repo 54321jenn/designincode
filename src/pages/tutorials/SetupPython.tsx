@@ -1,5 +1,5 @@
-import { Paper, Typography, Divider, Box, Stack, Alert, Button, Link } from '@mui/material'
-import { Lightbulb, Download, CheckCircle, Terminal, OpenInNew } from '@mui/icons-material'
+import { Paper, Typography, Divider, Box, Stack, Alert, Button } from '@mui/material'
+import { Lightbulb, Download, CheckCircle } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
 
 export default function SetupPython() {

@@ -1,5 +1,5 @@
 import { Paper, Typography, Divider, Box, Stack, Alert, Grid } from '@mui/material'
-import { Lightbulb, TextFields, FormatSize, LineWeight } from '@mui/icons-material'
+import { Lightbulb, TextFields, LineWeight } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
 import { useThemeMode } from '../../contexts/ThemeContext'
 
@@ -40,7 +40,7 @@ export default function TypographyPrinciples() {
         </Typography>
         
         <Grid container spacing={3} sx={{ mt: 1 }}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box 
               sx={{ 
                 p: 3, 
@@ -61,7 +61,7 @@ export default function TypographyPrinciples() {
               </Box>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box 
               sx={{ 
                 p: 3, 
@@ -152,7 +152,7 @@ typography: {
         </Typography>
 
         <Grid container spacing={3} sx={{ mt: 1 }}>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={{ p: 2, borderRadius: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary" gutterBottom>
                 Line height: 1.0 (too tight)
@@ -163,7 +163,7 @@ typography: {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={{ p: 2, borderRadius: 2, bgcolor: 'background.paper', border: '2px solid', borderColor: 'success.main' }}>
               <Typography variant="caption" color="success.main" gutterBottom>
                 Line height: 1.5 (just right) ✓
@@ -174,7 +174,7 @@ typography: {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={{ p: 2, borderRadius: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary" gutterBottom>
                 Line height: 2.2 (too loose)
@@ -294,7 +294,7 @@ typography: {
         </Typography>
 
         <Grid container spacing={3} sx={{ mt: 1 }}>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ p: 3, borderRadius: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary">Classic: Serif headlines + Sans body</Typography>
               <Typography sx={{ fontFamily: 'Georgia, serif', fontSize: 28, fontWeight: 700, mt: 2 }}>
@@ -306,7 +306,7 @@ typography: {
               </Typography>
             </Box>
           </Grid>
-          <Grid item xs={12} md={6}>
+          <Grid size={{ xs: 12, md: 6 }}>
             <Box sx={{ p: 3, borderRadius: 2, bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider' }}>
               <Typography variant="caption" color="text.secondary">Modern: One font family, varied weights</Typography>
               <Typography sx={{ fontFamily: 'Inter, sans-serif', fontSize: 28, fontWeight: 800, mt: 2 }}>

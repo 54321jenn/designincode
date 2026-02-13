@@ -1,4 +1,4 @@
-import { Paper, Typography, Divider, Box, Stack, Alert, Button, Link } from '@mui/material'
+import { Paper, Typography, Divider, Box, Stack, Alert, Button } from '@mui/material'
 import { Lightbulb, CheckCircle, Cloud, OpenInNew, Celebration, GitHub, Rocket } from '@mui/icons-material'
 import GettingStartedLayout, { CodeBlock } from '../getting-started/_GettingStartedLayout'
 
