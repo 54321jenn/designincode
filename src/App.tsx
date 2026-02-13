@@ -22,6 +22,7 @@ import SetupPython from './pages/tutorials/SetupPython'
 import HelloWorldStreamlit from './pages/tutorials/HelloWorldStreamlit'
 import PullRequests from './pages/tutorials/PullRequests'
 import CloneRepo from './pages/tutorials/CloneRepo'
+import TypographyPrinciples from './pages/design-principles/Typography'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="tutorials/hello-world-streamlit" element={<HelloWorldStreamlit />} />
         <Route path="components" element={<Components />} />
         <Route path="design-principles" element={<DesignPrinciples />} />
+        <Route path="design-principles/typography" element={<TypographyPrinciples />} />
 
         <Route path="ai-assistants">
           <Route index element={<AIAssistants />} />
