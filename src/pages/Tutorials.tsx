@@ -6,56 +6,88 @@ import {
   CardActionArea,
   Chip,
   Stack,
-  LinearProgress,
   Avatar,
 } from '@mui/material'
-import { AccessTime, SignalCellularAlt } from '@mui/icons-material'
+import { useNavigate } from 'react-router-dom'
+import { AccessTime, SignalCellularAlt, Terminal, Cloud, DataObject, Code, GitHub, Layers } from '@mui/icons-material'
 
 const tutorials = [
   {
     id: 1,
-    title: 'Getting Started with React & MUI',
-    description: 'Learn the basics of setting up a React project with Material UI.',
+    title: 'Command Line Basics',
+    description: 'Learn essential terminal commands to navigate and work with files like a pro.',
     duration: '15 min',
     level: 'Beginner',
-    progress: 100,
     category: 'Fundamentals',
+    path: '/tutorials/command-line',
+    icon: <Terminal />,
+    ready: true,
   },
   {
     id: 2,
-    title: 'Building Responsive Layouts',
-    description: 'Master the Grid system and create layouts that work on any screen size.',
-    duration: '25 min',
+    title: 'Clone a Repository',
+    description: 'Get code from GitHub onto your machine and start working with it.',
+    duration: '10 min',
     level: 'Beginner',
-    progress: 60,
-    category: 'Layout',
+    category: 'Git',
+    path: '/tutorials/clone-repo',
+    icon: <GitHub />,
+    ready: true,
   },
   {
     id: 3,
-    title: 'Custom Theming & Styling',
-    description: 'Create your own theme and learn advanced styling techniques.',
-    duration: '30 min',
-    level: 'Intermediate',
-    progress: 0,
-    category: 'Styling',
+    title: 'Pull Requests',
+    description: 'Learn how to propose changes, review code, and collaborate with others.',
+    duration: '15 min',
+    level: 'Beginner',
+    category: 'Git',
+    path: '/tutorials/pull-requests',
+    icon: <Code />,
+    ready: true,
   },
   {
     id: 4,
-    title: 'Animations & Transitions',
-    description: 'Add life to your UI with smooth animations and micro-interactions.',
-    duration: '20 min',
-    level: 'Intermediate',
-    progress: 0,
-    category: 'Animation',
+    title: 'Setup Python',
+    description: 'Get Python running on your machine — no experience required.',
+    duration: '10 min',
+    level: 'Beginner',
+    category: 'Python',
+    path: '/tutorials/setup-python',
+    icon: <DataObject />,
+    ready: true,
   },
   {
     id: 5,
-    title: 'Building a Dashboard',
-    description: 'Put it all together by building a complete admin dashboard.',
-    duration: '45 min',
+    title: 'Hello World with Streamlit',
+    description: 'Build your first Python web app in under 5 minutes.',
+    duration: '10 min',
+    level: 'Beginner',
+    category: 'Python',
+    path: '/tutorials/hello-world-streamlit',
+    icon: <Layers />,
+    ready: true,
+  },
+  {
+    id: 6,
+    title: 'Deploy to Vercel',
+    description: 'Put your React app on the internet in about 5 minutes — for free.',
+    duration: '10 min',
+    level: 'Beginner',
+    category: 'Deploy',
+    path: '/tutorials/vercel-publishing',
+    icon: <Cloud />,
+    ready: true,
+  },
+  {
+    id: 7,
+    title: 'MPC Servers',
+    description: 'Learn about Model-Protocol-Controller architecture for building AI tools.',
+    duration: '20 min',
     level: 'Advanced',
-    progress: 0,
-    category: 'Project',
+    category: 'Architecture',
+    path: '/tutorials/mpc-servers',
+    icon: <Code />,
+    ready: false,
   },
 ]
 
@@ -66,30 +98,45 @@ const levelColors: Record<string, 'success' | 'warning' | 'error'> = {
 }
 
 export default function Tutorials() {
+  const navigate = useNavigate()
+  
   return (
     <Box>
       <Typography variant="h2" gutterBottom>
         Tutorials
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
-        Step-by-step guides to help you master designing in code.
+        Step-by-step guides to help you master designing in code. Start anywhere — each tutorial stands alone.
       </Typography>
 
       <Stack spacing={2}>
         {tutorials.map((tutorial) => (
-          <Card key={tutorial.id}>
-            <CardActionArea>
+          <Card 
+            key={tutorial.id}
+            sx={{ 
+              opacity: tutorial.ready ? 1 : 0.6,
+              transition: 'transform 0.2s, box-shadow 0.2s',
+              '&:hover': tutorial.ready ? {
+                transform: 'translateX(4px)',
+                boxShadow: 4,
+              } : {},
+            }}
+          >
+            <CardActionArea 
+              onClick={() => tutorial.ready && navigate(tutorial.path)}
+              disabled={!tutorial.ready}
+            >
               <CardContent>
                 <Stack direction="row" spacing={3} alignItems="center">
                   <Avatar
                     sx={{
                       width: 56,
                       height: 56,
-                      bgcolor: 'primary.main',
+                      bgcolor: tutorial.ready ? 'primary.main' : 'action.disabled',
                       fontSize: '1.5rem',
                     }}
                   >
-                    {tutorial.id}
+                    {tutorial.icon}
                   </Avatar>
                   <Box sx={{ flexGrow: 1 }}>
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mb: 0.5 }}>
@@ -99,6 +146,9 @@ export default function Tutorials() {
                         size="small"
                         color={levelColors[tutorial.level]}
                       />
+                      {!tutorial.ready && (
+                        <Chip label="Coming soon" size="small" variant="outlined" />
+                      )}
                     </Stack>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                       {tutorial.description}
@@ -118,16 +168,6 @@ export default function Tutorials() {
                       </Stack>
                     </Stack>
                   </Box>
-                  <Box sx={{ width: 100 }}>
-                    <Typography variant="caption" color="text.secondary">
-                      {tutorial.progress}% complete
-                    </Typography>
-                    <LinearProgress
-                      variant="determinate"
-                      value={tutorial.progress}
-                      sx={{ height: 6, borderRadius: 3 }}
-                    />
-                  </Box>
                 </Stack>
               </CardContent>
             </CardActionArea>
@@ -137,4 +177,3 @@ export default function Tutorials() {
     </Box>
   )
 }
-
